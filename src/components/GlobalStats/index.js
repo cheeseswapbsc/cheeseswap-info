@@ -25,7 +25,7 @@ export default function GlobalStats() {
   const below400 = useMedia('(max-width: 400px)')
   const below816 = useMedia('(max-width: 816px)')
 
-  const [showPriceCard, setShowPriceCard] = useState(false)
+  const [setShowPriceCard] = useState(false)
 
   const { oneDayVolumeUSD, oneDayTxns, pairCount } = useGlobalData()
   const [ethPrice] = useEthPrice()

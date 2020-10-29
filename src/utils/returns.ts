@@ -4,8 +4,8 @@ import dayjs from 'dayjs'
 import { getShareValueOverTime } from '.'
 
 export const priceOverrides = [
-  '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-  '0x6b175474e89094c44da98b954eedeac495271d0f' // DAI
+  '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', // USDC
+  '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3' // DAI
 ]
 
 interface ReturnMetrics {
@@ -39,11 +39,11 @@ function formatPricesForEarlyTimestamps(position): Position {
       position.token1PriceUSD = 1
     }
     // WETH price
-    if (position.pair?.token0.id === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2') {
-      position.token0PriceUSD = 203
+    if (position.pair?.token0.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
+      position.token0PriceUSD = 30.2
     }
-    if (position.pair?.token1.id === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2') {
-      position.token1PriceUSD = 203
+    if (position.pair?.token1.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
+      position.token1PriceUSD = 30.1
     }
   }
   return position

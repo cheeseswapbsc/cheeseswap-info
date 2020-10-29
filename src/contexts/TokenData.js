@@ -286,7 +286,7 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
             data.oneDayTxns = data.txCount
           }
 
-          if (data.id === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2') {
+          if (data.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
             data.name = 'Ether (Wrapped)'
             data.symbol = 'ETH'
           }
@@ -408,7 +408,7 @@ const getTokenData = async (address, ethPrice, ethPriceOld) => {
     }
 
     // fix for WETH
-    if (data.id === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2') {
+    if (data.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
       data.name = 'ETH (Wrapped)'
       data.symbol = 'ETH'
     }

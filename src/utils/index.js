@@ -306,10 +306,10 @@ export const setThemeColor = theme => document.documentElement.style.setProperty
 export const Big = number => new BigNumber(number)
 
 export const urls = {
-  showTransaction: tx => `https://www.bscscan.com/tx/${tx}/`,
+  showTransaction: tx => `https://bscscan.com/tx/${tx}/`,
   showAddress: address => `https://www.bscscan.com/address/${address}/`,
   showToken: address => `https://www.bscscan.com/token/${address}/`,
-  showBlock: block => `https://www.bscscan.com/block/${block}/`
+  showBlock: block => `https://bscscan.com/block/${block}/`
 }
 
 export const formatTime = unix => {

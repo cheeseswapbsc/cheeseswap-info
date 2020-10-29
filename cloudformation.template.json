@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "https://info.cheeseswap.app",
+  "Description": "uniswap.info site",
   "Outputs": {
     "DeploymentAccessKeyId": {
       "Description": "Access key ID for deploying to the S3 bucket",
@@ -82,7 +82,7 @@
       "Type": "AWS::CertificateManager::Certificate",
       "Description": "The certificate used to secure the CloudFront distribution",
       "Properties": {
-        "DomainName": "info.cheeseswap.app",
+        "DomainName": "uniswap.info",
         "ValidationMethod": "DNS",
         "Tags": [
           {
@@ -241,10 +241,10 @@
               "ResponsePagePath": "/"
             }
           ],
-          "Comment": "https://info.cheeseswap.app",
+          "Comment": "uniswap.info",
           "Enabled": true,
           "Aliases": [
-            "info.cheeseswap.app"
+            "uniswap.info"
           ],
           "DefaultRootObject": "index.html",
           "HttpVersion": "http2",

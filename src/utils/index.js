@@ -349,13 +349,13 @@ export const toSignificant = (number, significantDigits) => {
   return updated.toFormat(updated.decimalPlaces(), { groupSeparator: '' })
 }
 
-export const formattedNum = (number, usd = false, acceptNegatives = false) => {
+export const formattedNum = (number, usd = true, acceptNegatives = false) => {
   if (isNaN(number) || number === '' || number === undefined) {
     return usd ? '$0' : 0
   }
   let num = parseFloat(number)
 
-  if (num > 500000000) {
+  if (num > 50) {
     return (usd ? '$' : '') + toK(num.toFixed(0), true)
   }
 
@@ -370,7 +370,7 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     return usd ? '< $0.0001' : '< 0.0001'
   }
 
-  if (num > 1000) {
+  if (num > 10) {
     return usd
       ? '$' + Number(parseFloat(num).toFixed(0)).toLocaleString()
       : '' + Number(parseFloat(num).toFixed(0)).toLocaleString()
@@ -426,7 +426,7 @@ export function formattedPercent(percent, useBrackets = false) {
     return '0%'
   }
   if (fixedPercent > 0) {
-    if (fixedPercent > 100) {
+    if (fixedPercent > 25) {
       return <Text fontWeight={600} color="green">{`+${percent?.toFixed(0).toLocaleString()}%`}</Text>
     } else {
       return <Text fontWeight={600} color="green">{`+${fixedPercent}%`}</Text>

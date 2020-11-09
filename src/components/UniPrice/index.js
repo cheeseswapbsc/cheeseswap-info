@@ -18,7 +18,7 @@ const PriceCard = styled(Panel)`
 `
 
 function formatPercent(rawPercent) {
-  if (rawPercent < 0.01) {
+  if (rawPercent < 0.0001) {
     return '<1%'
   } else return parseFloat(rawPercent * 100).toFixed(0) + '%'
 }
@@ -35,7 +35,7 @@ export default function UniPrice() {
   }, [daiPair, usdcPair, usdtPair])
 
   const daiPerEth = daiPair ? parseFloat(daiPair.token1Price).toFixed(2) : '-'
-  const usdcPerEth = usdcPair ? parseFloat(usdcPair.token1Price).toFixed(2) : '-'
+  const usdcPerEth = usdcPair ? parseFloat(usdcPair.token0Price).toFixed(2) : '-'
   const usdtPerEth = usdtPair ? parseFloat(usdtPair.token0Price).toFixed(2) : '-'
 
   return (

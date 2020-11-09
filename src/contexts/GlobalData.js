@@ -328,7 +328,7 @@ const getChartData = async oldestDateToFetch => {
         },
         fetchPolicy: 'cache-first'
       })
-      skip += 1000
+      skip += 100
       data = data.concat(result.data.uniswapDayDatas)
       if (result.data.uniswapDayDatas.length < 1000) {
         allFound = true
@@ -469,7 +469,7 @@ const getEthPrice = async () => {
   return [ethPrice, ethPriceOneDay, priceChangeETH]
 }
 
-const PAIRS_TO_FETCH = 500
+const PAIRS_TO_FETCH = 100
 const TOKENS_TO_FETCH = 500
 
 /**

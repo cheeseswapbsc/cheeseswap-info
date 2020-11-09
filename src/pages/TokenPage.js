@@ -230,7 +230,7 @@ function TokenPage({ address, history }) {
                     </Hover>
                   ) : !below1080 ? (
                     <StyledIcon>
-                      <Bookmark style={{ marginRight: '0.5rem', opacity: 0.4 }} />
+                      <Bookmark style={{ marginRight: '0.5rem', opacity: 0.9 }} />
                     </StyledIcon>
                   ) : (
                     <></>

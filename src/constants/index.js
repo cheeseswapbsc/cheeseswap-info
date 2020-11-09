@@ -17,18 +17,18 @@ export const SUPPORTED_LIST_URLS__NO_ENS = [
 
 // hide from overview list
 export const OVERVIEW_TOKEN_BLACKLIST = [
-  '0x495c7f3a713870f68f8b418b355c085dfdc412c3',
-  '0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea',
-  '0xe31debd7abff90b06bca21010dd860d8701fd901',
-  '0xfc989fbb6b3024de5ca0144dc23c18a063942ac1',
-  '0xe40fc6ff5f2895b44268fd2e1a421e07f567e007',
-  '0xfd158609228b43aa380140b46fff3cdf9ad315de',
-  '0xc00af6212fcf0e6fd3143e692ccd4191dc308bea',
-  '0x205969b3ad459F7eBA0DEe07231A6357183D3fb6',
+  '0xf455f6f7988b752f75488e2cccc030346d0cac72',
+  '0x6e86fdeef643636039badc531ec828829f52cff2',
+  '0x2e17533cc4c924137fdcd07c008e75d5d5f1c86b',
 ]
 
 // pair blacklist
-export const PAIR_BLACKLIST = ['0xb6a741f37d6e455ebcc9f17e2c16d0586c3f57a5']
+export const PAIR_BLACKLIST = [
+  '0xb6a741f37d6e455ebcc9f17e2c16d0586c3f57a5',
+  '0xf455f6f7988b752f75488e2cccc030346d0cac72',
+  '0x6e86fdeef643636039badc531ec828829f52cff2',
+  '0x2e17533cc4c924137fdcd07c008e75d5d5f1c86b',
+]
 
 /**
  * For tokens that cause erros on fee calculations

@@ -16,21 +16,12 @@ export const SUPPORTED_LIST_URLS__NO_ENS = [
 ]
 
 // hide from overview list
-export const OVERVIEW_TOKEN_BLACKLIST = [
-  '0xf455f6f7988b752f75488e2cccc030346d0cac72',
-  '0x6e86fdeef643636039badc531ec828829f52cff2',
-  '0x2e17533cc4c924137fdcd07c008e75d5d5f1c86b',
-]
+export const OVERVIEW_TOKEN_BLACKLIST = []
 
 // pair blacklist
-export const PAIR_BLACKLIST = [
-  '0xb6a741f37d6e455ebcc9f17e2c16d0586c3f57a5',
-  '0xf455f6f7988b752f75488e2cccc030346d0cac72',
-  '0x6e86fdeef643636039badc531ec828829f52cff2',
-  '0x2e17533cc4c924137fdcd07c008e75d5d5f1c86b',
-]
+export const PAIR_BLACKLIST = []
 
 /**
  * For tokens that cause erros on fee calculations
  */
-export const FEE_WARNING_TOKENS = ['0xd46ba6d942050d489dbd938a2c909a5d5039a161']
+export const FEE_WARNING_TOKENS = []

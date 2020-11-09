@@ -349,13 +349,13 @@ export const toSignificant = (number, significantDigits) => {
   return updated.toFormat(updated.decimalPlaces(), { groupSeparator: '' })
 }
 
-export const formattedNum = (number, usd = true, acceptNegatives = false) => {
+export const formattedNum = (number, usd = false, acceptNegatives = false) => {
   if (isNaN(number) || number === '' || number === undefined) {
     return usd ? '$0' : 0
   }
   let num = parseFloat(number)
 
-  if (num > 50) {
+  if (num > 100) {
     return (usd ? '$' : '') + toK(num.toFixed(0), true)
   }
 
@@ -370,7 +370,7 @@ export const formattedNum = (number, usd = true, acceptNegatives = false) => {
     return usd ? '< $0.0001' : '< 0.0001'
   }
 
-  if (num > 10) {
+  if (num > 50) {
     return usd
       ? '$' + Number(parseFloat(num).toFixed(0)).toLocaleString()
       : '' + Number(parseFloat(num).toFixed(0)).toLocaleString()

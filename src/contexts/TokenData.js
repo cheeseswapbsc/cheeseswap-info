@@ -408,7 +408,7 @@ const getTokenData = async (address, ethPrice, ethPriceOld) => {
     }
 
     // fix for WETH
-    if (data.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
+    if (data.id === '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2') {
       data.name = 'ETH (Wrapped)'
       data.symbol = 'ETH'
     }
@@ -698,7 +698,7 @@ export function useTokenPriceData(tokenAddress, timeWindow, interval = 3600) {
     const windowSize = timeWindow === timeframeOptions.MONTH ? 'month' : 'week'
     const startTime =
       timeWindow === timeframeOptions.ALL_TIME
-        ? 1589760000
+        ? 1619760000
         : currentTime
             .subtract(1, windowSize)
             .startOf('hour')

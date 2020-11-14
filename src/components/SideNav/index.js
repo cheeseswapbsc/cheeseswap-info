@@ -7,7 +7,7 @@ import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { RefreshCcw, TrendingUp, List, PieChart, Disc, Sunrise, DollarSign } from 'react-feather'
+import { RefreshCcw, TrendingUp, List, PieChart, Disc, Sunrise, DollarSign, Lock } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -164,6 +164,12 @@ function SideNav({ history }) {
                     Accounts
                   </Option>
                 </BasicLink>
+                <Link href="https://keep3rb.network" target="_blank">
+                  <Option>
+                    <Lock size={20} style={{ marginRight: '.75rem' }} />
+                      KP3RB
+                  </Option>
+                </Link>
                 <Link href="https://cheesemaker.farm" target="_blank">
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />

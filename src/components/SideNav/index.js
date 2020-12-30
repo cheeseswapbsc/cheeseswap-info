@@ -179,15 +179,15 @@ function SideNav({ history }) {
                 <Link href="https://stake.cheesemaker.farm" target="_blank">
                   <Option>
                     <DollarSign size={20} style={{ marginRight: '.75rem' }} />
-                      Stake (Testing)
+                      Hybrid Staking<br />
                   </Option>
                 </Link>
               </AutoColumn>
             )}
           </AutoColumn>
-          <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem' }}>
+          <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem', marginTop: '2rem' }}>
             <HeaderText>
-              <Link href="https://cheeseswap.finance/" target="_blank">
+              <Link href="https://cheeseswap.app/" target="_blank">
                 CheeseSwap
               </Link>
             </HeaderText>

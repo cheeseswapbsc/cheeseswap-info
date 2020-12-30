@@ -82,7 +82,7 @@ export function getSwapLink(token0Address, token1Address = null) {
 }
 
 export function localNumber(val) {
-  return Numeral(val).format('0,0')
+  return Numeral(val).format('0.0')
 }
 
 export const toNiceDate = date => {
@@ -351,12 +351,12 @@ export const toSignificant = (number, significantDigits) => {
 
 export const formattedNum = (number, usd = false, acceptNegatives = false) => {
   if (isNaN(number) || number === '' || number === undefined) {
-    return usd ? '$0' : 0
+    return usd ? '$' : 0
   }
   let num = parseFloat(number)
 
-  if (num > 100) {
-    return (usd ? '$' : '') + toK(num.toFixed(0), true)
+  if (num > 10) {
+    return (usd ? '$' : '') + toK(num.toFixed(2), true)
   }
 
   if (num === 0) {
@@ -370,10 +370,10 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     return usd ? '< $0.0001' : '< 0.0001'
   }
 
-  if (num > 50) {
+  if (num > 10) {
     return usd
-      ? '$' + Number(parseFloat(num).toFixed(0)).toLocaleString()
-      : '' + Number(parseFloat(num).toFixed(0)).toLocaleString()
+      ? '$' + Number(parseFloat(num).toFixed(2)).toLocaleString()
+      : '' + Number(parseFloat(num).toFixed(2)).toLocaleString()
   }
 
   if (usd) {
@@ -421,7 +421,7 @@ export function formattedPercent(percent, useBrackets = false) {
     )
   }
 
-  let fixedPercent = percent.toFixed(2)
+  let fixedPercent = percent.toFixed(0)
   if (fixedPercent === '0.00') {
     return '0%'
   }

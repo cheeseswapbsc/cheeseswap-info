@@ -10,7 +10,7 @@ const links = [
 ]
 
 const FooterLink = ({ children, ...rest }) => (
-  <Link external color="uniswappink" fontWeight={700} fontSize={12} mr={'8px'} {...rest}>
+  <Link external color="uniswappink" fontWeight={700} fontSize={16} mr={'8px'} {...rest}>
     {children}
   </Link>
 )

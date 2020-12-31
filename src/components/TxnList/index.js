@@ -95,7 +95,7 @@ const ClickableText = styled(Text)`
   }
 
   @media screen and (max-width: 640px) {
-    font-size: 14px;
+    font-size: 18px;
   }
 `
 
@@ -125,7 +125,7 @@ const SortText = styled.button`
   outline: none;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 18px;
   }
 `
 

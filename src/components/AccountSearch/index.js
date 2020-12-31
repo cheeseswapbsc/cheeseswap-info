@@ -43,7 +43,7 @@ const Input = styled.input`
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
-    font-size: 14px;
+    font-size: 18px;
   }
 
   @media screen and (max-width: 640px) {
@@ -57,7 +57,7 @@ const AccountLink = styled.span`
   display: flex;
   cursor: pointer;
   color: ${({ theme }) => theme.link};
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
 `
 

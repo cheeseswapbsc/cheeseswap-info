@@ -13,7 +13,7 @@ const TextWrapper = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    font-size: ${({ adjustSize }) => adjustSize && '12px'};
+    font-size: ${({ adjustSize }) => adjustSize && '16px'};
   }
 `
 

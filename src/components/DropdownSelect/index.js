@@ -74,7 +74,7 @@ const DropdownSelect = ({ options, active, setActive, color }) => {
                     }}
                     key={index}
                   >
-                    <TYPE.body fontSize={14}>{option}</TYPE.body>
+                    <TYPE.body fontSize={18}>{option}</TYPE.body>
                   </Row>
                 )
               )

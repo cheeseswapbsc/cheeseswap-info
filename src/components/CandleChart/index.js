@@ -166,7 +166,7 @@ const CandleStickChart = ({
           toolTip.innerHTML =
             `<div style="font-size: 22px; margin: 4px 0px; color: ${textColor}">` +
             valueFormatter(price) +
-            `<span style="font-size: 12px; margin: 4px 6px; color: ${textColor}">` +
+            `<span style="font-size: 16px; margin: 4px 6px; color: ${textColor}">` +
             time +
             ' UTC' +
             '</span>' +

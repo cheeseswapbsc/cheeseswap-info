@@ -87,7 +87,7 @@ function GlobalPage() {
                         <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={600}>
                           {formattedNum(oneDayVolumeUSD, true)}
                         </TYPE.main>
-                        <TYPE.main fontSize={12}>{formattedPercent(volumeChangeUSD)}</TYPE.main>
+                        <TYPE.main fontSize={16}>{formattedPercent(volumeChangeUSD)}</TYPE.main>
                       </RowBetween>
                     </AutoColumn>
                     <AutoColumn gap="20px">
@@ -99,7 +99,7 @@ function GlobalPage() {
                         <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={600}>
                           {formattedNum(totalLiquidityUSD, true)}
                         </TYPE.main>
-                        <TYPE.main fontSize={12}>{formattedPercent(liquidityChangeUSD)}</TYPE.main>
+                        <TYPE.main fontSize={16}>{formattedPercent(liquidityChangeUSD)}</TYPE.main>
                       </RowBetween>
                     </AutoColumn>
                   </AutoColumn>

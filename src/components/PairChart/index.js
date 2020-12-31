@@ -100,13 +100,13 @@ const PairChart = ({ address, color, base0, base1 }) => {
     if (chartFilter === CHART_VIEW.RATE0) {
       return (
         formattedNum(val) +
-        `<span style="font-size: 12px; margin-left: 4px;">${formattedSymbol1}/${formattedSymbol0}<span>`
+        `<span style="font-size: 16px; margin-left: 4px;">${formattedSymbol1}/${formattedSymbol0}<span>`
       )
     }
     if (chartFilter === CHART_VIEW.RATE1) {
       return (
         formattedNum(val) +
-        `<span style="font-size: 12px; margin-left: 4px;">${formattedSymbol0}/${formattedSymbol1}<span>`
+        `<span style="font-size: 16px; margin-left: 4px;">${formattedSymbol0}/${formattedSymbol1}<span>`
       )
     }
   }

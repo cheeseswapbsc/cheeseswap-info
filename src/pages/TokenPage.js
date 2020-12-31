@@ -190,7 +190,7 @@ function TokenPage({ address, history }) {
               external
               href={'https://bscscan.com/address/' + address}
             >
-              <Text style={{ marginLeft: '.15rem' }} fontSize={'14px'} fontWeight={600}>
+              <Text style={{ marginLeft: '.15rem' }} fontSize={'18px'} fontWeight={600}>
                 ({address.slice(0, 8) + '...' + address.slice(36, 42)})
               </Text>
             </Link>

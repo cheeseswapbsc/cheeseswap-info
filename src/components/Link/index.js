@@ -28,7 +28,7 @@ export default Link
 
 export const CustomLink = styled(RouterLink)`
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: ${({ color, theme }) => (color ? color : theme.link)};
 

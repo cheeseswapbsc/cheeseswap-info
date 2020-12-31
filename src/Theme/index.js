@@ -82,15 +82,15 @@ const TextWrapper = styled(Text)`
 
 export const TYPE = {
   main(props) {
-    return <TextWrapper fontWeight={700} fontSize={14} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={700} fontSize={18} color={'text1'} {...props} />
   },
 
   body(props) {
-    return <TextWrapper fontWeight={600} fontSize={14} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={600} fontSize={18} color={'text1'} {...props} />
   },
 
   small(props) {
-    return <TextWrapper fontWeight={700} fontSize={11} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={700} fontSize={14} color={'text1'} {...props} />
   },
 
   header(props) {
@@ -102,7 +102,7 @@ export const TYPE = {
   },
 
   light(props) {
-    return <TextWrapper fontWeight={600} color={'text3'} fontSize={14} {...props} />
+    return <TextWrapper fontWeight={600} color={'text3'} fontSize={18} {...props} />
   },
 
   pink(props) {
@@ -168,7 +168,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     height: 100%;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     background-color: ${({ theme }) => theme.bg6};
   }
@@ -187,7 +187,7 @@ export const GlobalStyle = createGlobalStyle`
 	height: 70px;
 	position: absolute;
 	padding: 8px;
-	font-size: 12px;
+	font-size: 16px;
 	color: #20262E;
 	background-color: rgba(255, 255, 255, 0.23);
 	text-align: left;
@@ -200,7 +200,7 @@ export const GlobalStyle = createGlobalStyle`
 	height: 70px;
 	position: absolute;
 	padding: 8px;
-	font-size: 12px;
+	font-size: 16px;
 	color: white;
 	background-color: rgba(255, 255, 255, 0.23);
 	text-align: left;

@@ -258,7 +258,7 @@ function TokenPage({ address, history }) {
                       </RowBetween>
                       <RowBetween align="flex-end">
                         {' '}
-                        <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={700}>
+                        <TYPE.main fontSize={'2.5rem'} lineHeight={1} fontWeight={700}>
                           {price}
                         </TYPE.main>
                         <TYPE.main>{priceChange}</TYPE.main>
@@ -273,7 +273,7 @@ function TokenPage({ address, history }) {
                       <div />
                     </RowBetween>
                     <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={700}>
+                      <TYPE.main fontSize={'2.5rem'} lineHeight={1} fontWeight={700}>
                         {liquidity}
                       </TYPE.main>
                       <TYPE.main>{liquidityChange}</TYPE.main>
@@ -287,7 +287,7 @@ function TokenPage({ address, history }) {
                       <div />
                     </RowBetween>
                     <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={700}>
+                      <TYPE.main fontSize={'2.5rem'} lineHeight={1} fontWeight={700}>
                         {volume}
                       </TYPE.main>
                       <TYPE.main>{volumeChange}</TYPE.main>
@@ -302,7 +302,7 @@ function TokenPage({ address, history }) {
                       <div />
                     </RowBetween>
                     <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={700}>
+                      <TYPE.main fontSize={'2.5rem'} lineHeight={1} fontWeight={700}>
                         {oneDayTxns ? localNumber(oneDayTxns) : oneDayTxns === 0 ? 0 : '-'}
                       </TYPE.main>
                       <TYPE.main>{txnChangeFormatted}</TYPE.main>

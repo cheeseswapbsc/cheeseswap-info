@@ -12,12 +12,12 @@ import { TYPE } from '../../Theme'
 
 const CHART_VIEW = {
   VOLUME: 'Volume',
-  LIQUIDITY: 'Liquidity',
+  LIQUIDITY: 'Liquidity'
 }
 
 const VOLUME_WINDOW = {
   WEEKLY: 'WEEKLY',
-  DAYS: 'DAYS',
+  DAYS: 'DAYS'
 }
 const GlobalChart = ({ display }) => {
   // chart options
@@ -35,7 +35,7 @@ const GlobalChart = ({ display }) => {
     volumeChangeUSD,
     liquidityChangeUSD,
     oneWeekVolume,
-    weeklyVolumeChange,
+    weeklyVolumeChange
   } = useGlobalData()
 
   // based on window, get starttim
@@ -46,15 +46,15 @@ const GlobalChart = ({ display }) => {
     return (
       currentData &&
       Object.keys(currentData)
-        ?.map((key) => {
+        ?.map(key => {
           let item = currentData[key]
           if (item.date > utcStartTime) {
             return item
           } else {
-            return  !!item
+            return
           }
         })
-        .filter((item) => {
+        .filter(item => {
           return !!item
         })
     )
@@ -79,7 +79,7 @@ const GlobalChart = ({ display }) => {
   return chartDataFiltered ? (
     <>
       {below800 && (
-        <DropdownSelect options={CHART_VIEW} active={chartView} setActive={setChartView} color={'#ff007a'} />
+        <DropdownSelect options={CHART_VIEW} active={chartView} setActive={setChartView} color={'#B5449B'} />
       )}
 
       {chartDataFiltered && chartView === CHART_VIEW.LIQUIDITY && (
@@ -110,14 +110,7 @@ const GlobalChart = ({ display }) => {
         </ResponsiveContainer>
       )}
       {display === 'volume' && (
-        <RowFixed
-          style={{
-            bottom: '70px',
-            position: 'absolute',
-            left: '20px',
-            zIndex: 10,
-          }}
-        >
+        <RowFixed style={{ bottom: '70px', position: 'absolute', left: '20px', zIndex: 10 }}>
           <OptionButton
             active={volumeWindow === VOLUME_WINDOW.DAYS}
             onClick={() => setVolumeWindow(VOLUME_WINDOW.DAYS)}
@@ -140,4 +133,3 @@ const GlobalChart = ({ display }) => {
 }
 
 export default GlobalChart
-

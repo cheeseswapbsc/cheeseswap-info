@@ -95,7 +95,7 @@ const ClickableText = styled(Text)`
   }
 
   @media screen and (max-width: 640px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `
 
@@ -115,17 +115,18 @@ const DataText = styled(Flex)`
 
 const SortText = styled.button`
   cursor: pointer;
-  font-weight: ${({ active, theme }) => (active ? 700 : 600)};
+  font-weight: ${({ active, theme }) => (active ? 500 : 400)};
   margin-right: 0.75rem !important;
   border: none;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 18px;
+  font-family: 'Teko';
   padding: 0px;
   color: ${({ active, theme }) => (active ? theme.text1 : theme.text3)};
   outline: none;
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `
 
@@ -289,7 +290,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
 
     return (
       <DashGrid style={{ height: '48px' }}>
-        <DataText area="txn" fontWeight="700">
+        <DataText area="txn" fontWeight="500">
           <Link color={color} external href={urls.showTransaction(item.hash)}>
             {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
           </Link>

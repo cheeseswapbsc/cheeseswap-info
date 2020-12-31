@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  border-radius: 12px;
+  /** border-radius: 12px; **/
 `
 
 const Input = styled.input`
@@ -34,7 +34,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   padding: 12px 16px;
-  border-radius: 12px;
+  /** border-radius: 12px; **/
   color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.bg1};
   font-size: 16px;
@@ -43,7 +43,7 @@ const Input = styled.input`
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
-    font-size: 14px;
+    font-size: 18px;
   }
 
   @media screen and (max-width: 640px) {
@@ -57,8 +57,8 @@ const AccountLink = styled.span`
   display: flex;
   cursor: pointer;
   color: ${({ theme }) => theme.link};
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
 `
 
 const DashGrid = styled.div`

@@ -103,11 +103,11 @@ const DataText = styled(Flex)`
   color: ${({ theme }) => theme.text1};
 
   & > * {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 `
 
@@ -179,7 +179,7 @@ function TopTokenList({ tokens, itemMax = 10 }) {
   const ListItem = ({ item, index }) => {
     return (
       <DashGrid style={{ height: '48px' }} focus={true}>
-        <DataText area="name" fontWeight="700">
+        <DataText area="name" fontWeight="500">
           <Row>
             {!below680 && <div style={{ marginRight: '1rem', width: '10px' }}>{index}</div>}
             <TokenLogo address={item.id} />
@@ -194,14 +194,14 @@ function TopTokenList({ tokens, itemMax = 10 }) {
           </Row>
         </DataText>
         {!below680 && (
-          <DataText area="symbol" color="text" fontWeight="700">
+          <DataText area="symbol" color="text" fontWeight="500">
             <FormattedName text={item.symbol.toUpperCase()} maxCharacters={5} />
           </DataText>
         )}
         <DataText area="liq">{formattedNum(item.totalLiquidityUSD, true)}</DataText>
         <DataText area="vol">{formattedNum(item.oneDayVolumeUSD, true)}</DataText>
         {!below1080 && (
-          <DataText area="price" color="text" fontWeight="700">
+          <DataText area="price" color="text" fontWeight="500">
             {formattedNum(item.priceUSD, true)}
           </DataText>
         )}
@@ -217,7 +217,7 @@ function TopTokenList({ tokens, itemMax = 10 }) {
           <ClickableText
             color="text"
             area="name"
-            fontWeight="700"
+            fontWeight="500"
             onClick={e => {
               setSortedColumn(SORT_FIELD.NAME)
               setSortDirection(sortedColumn !== SORT_FIELD.NAMe ? true : !sortDirection)

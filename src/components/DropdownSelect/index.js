@@ -35,7 +35,7 @@ const Dropdown = styled.div`
   padding: 10px 10px;
   border-radius: 8px;
   width: calc(100% - 20px);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1rem;
   color: black;
   :hover {
@@ -74,7 +74,7 @@ const DropdownSelect = ({ options, active, setActive, color }) => {
                     }}
                     key={index}
                   >
-                    <TYPE.body fontSize={14}>{option}</TYPE.body>
+                    <TYPE.body fontSize={18}>{option}</TYPE.body>
                   </Row>
                 )
               )

@@ -6,14 +6,15 @@ const TextWrapper = styled.div`
   position: relative;
   margin-left: ${({ margin }) => margin && '4px'};
   color: ${({ theme, link }) => (link ? theme.blue : theme.text1)};
-  font-size: ${({ fontSize }) => fontSize ?? 'inherit'};
+  font-size: ${({ fontSize }) => fontSize ?? '18px'};
+  font-weight: 500;
 
   :hover {
     cursor: pointer;
   }
 
   @media screen and (max-width: 600px) {
-    font-size: ${({ adjustSize }) => adjustSize && '12px'};
+    font-size: ${({ adjustSize }) => adjustSize && '16px'};
   }
 `
 

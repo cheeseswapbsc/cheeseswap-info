@@ -1,10 +1,10 @@
+
 import React from 'react'
 import styled from 'styled-components'
 import { Sun, Moon } from 'react-feather'
 
 const IconWrapper = styled.div<{ isActive?: boolean }>`
   opacity: ${({ isActive }) => (isActive ? 0.8 : 0.4)};
-
   :hover {
     opacity: 1;
   }
@@ -15,9 +15,7 @@ const StyledToggle = styled.div`
   width: fit-content;
   cursor: pointer;
   text-decoration: none;
-  margin-top: 1rem;
-  color: white;
-
+  color: ${({ theme }) => theme.white};
   :hover {
     text-decoration: none;
   }
@@ -33,13 +31,13 @@ export default function Toggle({ isActive, toggle }: ToggleProps) {
     <StyledToggle onClick={toggle}>
       <span>
         <IconWrapper isActive={!isActive}>
-          <Sun size={20} />
+          <Sun size={18} />
         </IconWrapper>
       </span>
-      <span style={{ padding: '0 .5rem' }}>{' / '}</span>
+      <span style={{ padding: '0 .5rem' }}></span>
       <span>
         <IconWrapper isActive={isActive}>
-          <Moon size={20} />
+          <Moon size={18} />
         </IconWrapper>
       </span>
     </StyledToggle>

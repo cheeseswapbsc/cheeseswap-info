@@ -13,16 +13,14 @@ import { ButtonFaded } from '../ButtonStyled'
 import FormattedName from '../FormattedName'
 
 const RightColumn = styled.div`
-  position: fixed;
   right: 0;
   top: 0px;
-  height: 100vh;
-  width: ${({ open }) => (open ? '160px' : '23px')};
-  padding: 1.25rem;
-  border-left: ${({ theme, open }) => '1px solid' + theme.bg3};
-  background-color: ${({ theme }) => theme.bg1};
+  height: 100%;
+  width: ${({ open }) => (open ? '160px' : '24px')};
+  padding: 10px;
+  background-color: ${({ theme }) => theme.advancedBG};
   z-index: 9999;
-  overflow: scroll;
+  overflow: auto;
   :hover {
     cursor: pointer;
   }
@@ -30,8 +28,8 @@ const RightColumn = styled.div`
 
 const SavedButton = styled(RowBetween)`
   padding-bottom: ${({ open }) => open && '20px'};
-  border-bottom: ${({ theme, open }) => open && '1px solid' + theme.bg3};
-  margin-bottom: ${({ open }) => open && '1.25rem'};
+  border-bottom: ${({ theme, open }) => open && '2px solid' + theme.bg3};
+  margin-bottom: ${({ open }) => open && '1rem'};
 
   :hover {
     cursor: pointer;
@@ -39,7 +37,7 @@ const SavedButton = styled(RowBetween)`
 `
 
 const ScrollableDiv = styled(AutoColumn)`
-  overflow: scroll;
+  overflow: auto;
   padding-bottom: 60px;
 `
 

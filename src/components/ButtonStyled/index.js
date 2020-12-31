@@ -7,10 +7,11 @@ import { RowBetween } from '../Row'
 import { StyledIcon } from '..'
 
 const Base = styled(RebassButton)`
-  padding: 8px 12px;
-  font-size: 0.825rem;
-  font-weight: 600;
-  border-radius: 12px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Teko';
+  /** border-radius: 12px; **/
   cursor: pointer;
   outline: none;
   border: 2px solid transparent;
@@ -21,9 +22,10 @@ const Base = styled(RebassButton)`
 
 const BaseCustom = styled(RebassButton)`
   padding: 16px 12px;
-  font-size: 0.825rem;
+  font-size: 18px;
+  font-family: 'Teko';
   font-weight: 600;
-  border-radius: 12px;
+  /** border-radius: 12px; **/
   cursor: pointer;
   outline: none;
 `
@@ -64,7 +66,7 @@ export const ButtonLight = styled(Base)`
   color: ${({ color, theme }) => (color ? darken(0.1, color) : theme.primary1)};
 
   min-width: fit-content;
-  border-radius: 12px;
+  /** border-radius: 12px; **/
   white-space: nowrap;
 
   a {
@@ -100,7 +102,7 @@ export const ButtonDark = styled(Base)`
   background-color: ${({ color, theme }) => (color ? color : theme.primary1)};
   color: white;
   width: fit-content;
-  border-radius: 12px;
+  /** border-radius: 12px; **/
   white-space: nowrap;
 
   :hover {
@@ -138,11 +140,11 @@ export function ButtonCustom({ children, bgColor, color, ...rest }) {
 }
 
 export const OptionButton = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   width: fit-content;
   white-space: nowrap;
   padding: 6px;
-  border-radius: 6px;
+  /** border-radius: 6px; **/
   border: 2px solid ${({ theme }) => theme.bg4};
   background-color: ${({ active, theme }) => active && theme.bg3};
   color: ${({ theme }) => theme.text1};

@@ -15,8 +15,8 @@ const Select = styled.div`
 
   width: fit-content;
   height: 38px;
-  border-radius: 20px;
-  font-weight: 600;
+  /** border-radius: 20px; **/
+  font-weight: 500;
   font-size: 1rem;
   color: ${({ theme }) => theme.textColor};
 

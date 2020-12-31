@@ -24,12 +24,9 @@ const AppWrapper = styled.div`
   width: 100%;
 `
 const ContentWrapper = styled.div`
-  display: grid;
-  grid-template-columns: ${({ open }) => (open ? '220px 1fr 200px' : '220px 1fr 64px')};
+/** display: flex; **/
+/** grid-template-columns: ${({ open }) => (open ? '220px 1fr 200px' : '220px 1fr 64px')}; **/
 
-  @media screen and (max-width: 1400px) {
-    grid-template-columns: 220px 1fr;
-  }
 
   @media screen and (max-width: 1080px) {
     grid-template-columns: 1fr;
@@ -44,20 +41,17 @@ const Right = styled.div`
   right: 0;
   bottom: 0rem;
   z-index: 99;
-  width: ${({ open }) => (open ? '220px' : '64px')};
-  height: ${({ open }) => (open ? 'fit-content' : '64px')};
-  overflow: scroll;
-  background-color: ${({ theme }) => theme.bg1};
-  @media screen and (max-width: 1400px) {
-    display: none;
-  }
+  width: ${({ open }) => (open ? '220px' : '48px')};
+  height: ${({ open }) => (open ? 'fit-content' : 'fit-content')};
+  overflow: auto;
+  background-color: ${({ theme }) => theme.advancedBG};
+  border: 2px solid ${({ theme }) => theme.bg3};
 `
 
 const Center = styled.div`
   height: 100%;
   z-index: 9999;
   transition: width 0.25s ease;
-  background-color: ${({ theme }) => theme.onlyLight};
 `
 
 /**
@@ -66,8 +60,8 @@ const Center = styled.div`
 const LayoutWrapper = ({ children, savedOpen, setSavedOpen }) => {
   return (
     <>
+    <SideNav />
       <ContentWrapper open={savedOpen}>
-        <SideNav />
         <Center id="center">{children}</Center>
         <Right open={savedOpen}>
           <PinnedData open={savedOpen} setSavedOpen={setSavedOpen} />

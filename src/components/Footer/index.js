@@ -4,13 +4,13 @@ import { Flex } from 'rebass'
 import Link from '../Link'
 
 const links = [
-  { url: 'https://cheeseswap.app', text: 'About' },
+  { url: 'https://chheseswap.app', text: 'About' },
   { url: 'https://docs.cheeseswap.app/', text: 'Docs' },
-  { url: 'https://github.com/cheesemakerfarm/cheeseswap-info', text: 'Code' }
+  { url: 'https://github.com/cheeseswap/cheeseswap-info', text: 'Code' }
 ]
 
 const FooterLink = ({ children, ...rest }) => (
-  <Link external color="uniswappink" fontWeight={700} fontSize={12} mr={'8px'} {...rest}>
+  <Link external color="uniswappink" fontWeight={500} fontSize={12} mr={'8px'} {...rest}>
     {children}
   </Link>
 )

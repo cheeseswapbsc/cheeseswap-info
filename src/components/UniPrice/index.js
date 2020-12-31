@@ -18,15 +18,15 @@ const PriceCard = styled(Panel)`
 `
 
 function formatPercent(rawPercent) {
-  if (rawPercent < 0.0001) {
+  if (rawPercent < 0.01) {
     return '<1%'
   } else return parseFloat(rawPercent * 100).toFixed(0) + '%'
 }
 
 export default function UniPrice() {
-  const daiPair = usePairData('0x578e8cec62666d2750d92ecc70be0961ff3ab269')
-  const usdcPair = usePairData('0x578e8cec62666d2750d92ecc70be0961ff3ab269')
-  const usdtPair = usePairData('0xcfd63197d764cd70d07bb607e6367ae0e869badd')
+  const daiPair = usePairData('0xa478c2975ab1ea89e8196811f51a7b7ade33eb11')
+  const usdcPair = usePairData('0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc')
+  const usdtPair = usePairData('0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852')
 
   const totalLiquidity = useMemo(() => {
     return daiPair && usdcPair && usdtPair
@@ -36,7 +36,7 @@ export default function UniPrice() {
 
   const daiPerEth = daiPair ? parseFloat(daiPair.token0Price).toFixed(2) : '-'
   const usdcPerEth = usdcPair ? parseFloat(usdcPair.token0Price).toFixed(2) : '-'
-  const usdtPerEth = usdtPair ? parseFloat(usdtPair.token0Price).toFixed(2) : '-'
+  const usdtPerEth = usdtPair ? parseFloat(usdtPair.token1Price).toFixed(2) : '-'
 
   return (
     <PriceCard>

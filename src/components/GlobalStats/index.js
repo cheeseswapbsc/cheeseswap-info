@@ -5,7 +5,7 @@ import { useMedia } from 'react-use'
 import { useGlobalData, useEthPrice } from '../../contexts/GlobalData'
 import { formattedNum, localNumber } from '../../utils'
 
-//import UniPrice from '../UniPrice'
+import UniPrice from '../UniPrice'
 import { TYPE } from '../../Theme'
 
 const Header = styled.div`
@@ -15,7 +15,7 @@ const Header = styled.div`
 `
 
 const Medium = styled.span`
-  font-weight: 600;
+  font-weight: 500;
 `
 
 export default function GlobalStats() {
@@ -25,7 +25,7 @@ export default function GlobalStats() {
   const below400 = useMedia('(max-width: 400px)')
   const below816 = useMedia('(max-width: 816px)')
 
-  const [setShowPriceCard] = useState(false)
+  const [showPriceCard, setShowPriceCard] = useState(false)
 
   const { oneDayVolumeUSD, oneDayTxns, pairCount } = useGlobalData()
   const [ethPrice] = useEthPrice()

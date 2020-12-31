@@ -45,7 +45,7 @@ export const customStyles = {
     ...styles,
     paddingLeft: 16,
     textAlign: 'right',
-    overflow: 'scroll'
+    overflow: 'auto'
   }),
   menuPlacer: styles => ({
     ...styles

@@ -17,4 +17,13 @@ export const AutoColumn = styled.div`
   justify-items: ${({ justify }) => justify && justify};
 `
 
+export const AutoColumnNav = styled.div`
+  display: flex;
+  align-items: center;
+  @media (max-width: 600px) {
+  display: grid;
+  margin-top: 10px;
+}
+`
+
 export default Column

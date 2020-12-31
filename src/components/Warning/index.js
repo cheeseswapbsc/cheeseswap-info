@@ -17,7 +17,7 @@ const WarningWrapper = styled.div`
   padding: 1rem;
   color: #f82d3a;
   display: ${({ show }) => !show && 'none'};
-  margin: 0 6rem 2rem 6rem;
+  margin: 0 2rem 2rem 2rem;
   position: relative;
 
   @media screen and (max-width: 800px) {
@@ -37,17 +37,17 @@ export default function Warning({ type, show, setShow, address }) {
 
   const textContent = below800 ? (
     <div>
-      <Text fontWeight={500} lineHeight={'145.23%'} mt={'10px'}>
+      <Text fontWeight={700} lineHeight={'145.23%'} mt={'10px'}>
         Anyone can create and name any BEP20 token on BSC, including creating fake versions of existing tokens and
         tokens that claim to represent projects that do not have a token.
       </Text>
-      <Text fontWeight={500} lineHeight={'145.23%'} mt={'10px'}>
+      <Text fontWeight={700} lineHeight={'145.23%'} mt={'10px'}>
         Similar to BscScan, this site automatically tracks analytics for all BEP20 tokens independent of token
         integrity. Please do your own research before interacting with any BEP20 token.
       </Text>
     </div>
   ) : (
-    <Text fontWeight={500} lineHeight={'145.23%'} mt={'10px'}>
+    <Text fontWeight={700} lineHeight={'145.23%'} mt={'10px'}>
       Anyone can create and name any BEP20 token on BSC, including creating fake versions of existing tokens and
       tokens that claim to represent projects that do not have a token. Similar to BscScan, this site automatically
       tracks analytics for all BEP20 tokens independent of token integrity. Please do your own research before
@@ -69,7 +69,7 @@ export default function Warning({ type, show, setShow, address }) {
           <div>
             <Hover style={{ marginTop: '10px' }}>
               <Link
-                fontWeight={500}
+                fontWeight={700}
                 lineHeight={'145.23%'}
                 color={'#2172E5'}
                 href={'https://bscscan.com/address/' + address}
@@ -89,7 +89,7 @@ export default function Warning({ type, show, setShow, address }) {
           <RowBetween style={{ marginTop: '10px' }}>
             <Hover>
               <Link
-                fontWeight={500}
+                fontWeight={700}
                 lineHeight={'145.23%'}
                 color={'#2172E5'}
                 href={'https://bscscan.com/address/' + address}

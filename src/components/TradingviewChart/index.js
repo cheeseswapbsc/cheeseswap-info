@@ -103,11 +103,11 @@ const TradingViewChart = ({
         },
         grid: {
           horzLines: {
-            color: 'rgba(79, 216, 222, 0.5)',
+            color: 'rgba(181, 68, 155, 0.5)',
             visible: false
           },
           vertLines: {
-            color: 'rgba(79, 216, 222, 0.5)',
+            color: 'rgba(181, 68, 155, 0.5)',
             visible: false
           }
         },
@@ -132,7 +132,7 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-              color: '#B5449B',
+              color: '#b5449b',
               priceFormat: {
                 type: 'volume'
               },
@@ -140,13 +140,13 @@ const TradingViewChart = ({
                 top: 0.32,
                 bottom: 0
               },
-              lineColor: '#B5449B',
+              lineColor: '#b5449b',
               lineWidth: 3
             })
           : chart.addAreaSeries({
-              topColor: '#B5449B',
+              topColor: '#b5449b',
               bottomColor: 'rgba(181, 68, 155, 0)',
-              lineColor: '#B5449B',
+              lineColor: '#b5449b',
               lineWidth: 3
             })
 
@@ -156,7 +156,7 @@ const TradingViewChart = ({
       toolTip.className = darkMode ? 'three-line-legend-dark' : 'three-line-legend'
       ref.current.appendChild(toolTip)
       toolTip.style.display = 'block'
-      toolTip.style.fontWeight = '500'
+      toolTip.style.fontWeight = '700'
       toolTip.style.left = -4 + 'px'
       toolTip.style.top = '-' + 8 + 'px'
       toolTip.style.backgroundColor = 'transparent'

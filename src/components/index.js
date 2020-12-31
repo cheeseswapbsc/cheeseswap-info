@@ -31,7 +31,7 @@ export const IconWrapper = styled.div`
 `
 
 const Hint = ({ children, ...rest }) => (
-  <Text fontSize={16} weight={500} {...rest}>
+  <Text fontSize={16} weight={700} {...rest}>
     {children}
   </Text>
 )
@@ -90,7 +90,7 @@ export const SubNavEl = styled.li`
   display: flex;
   padding-bottom: 0.5rem;
   margin-right: 1rem;
-  font-weight: ${({ isActive }) => (isActive ? 600 : 500)};
+  font-weight: ${({ isActive }) => (isActive ? 600 : 700)};
   border-bottom: 1px solid rgba(0, 0, 0, 0);
 
   :hover {

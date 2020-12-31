@@ -98,7 +98,7 @@ const DataText = styled(Flex)`
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 14px;
+    font-size: 13px;
   }
 `
 
@@ -142,7 +142,7 @@ function PositionList({ positions }) {
     const valueUSD = poolOwnership * position.pair.reserveUSD
 
     return (
-      <DashGrid style={{ opacity: poolOwnership > 0 ? 1 : 0.8 }} focus={true}>
+      <DashGrid style={{ opacity: poolOwnership > 0 ? 1 : 0.6 }} focus={true}>
         {!below740 && <DataText area="number">{index}</DataText>}
         <DataText area="name" justifyContent="flex-start" alignItems="flex-start">
           <AutoColumn gap="8px" justify="flex-start" align="flex-start">
@@ -179,25 +179,25 @@ function PositionList({ positions }) {
             <TYPE.main>{formattedNum(valueUSD, true, true)}</TYPE.main>
             <AutoColumn gap="4px" justify="flex-end">
               <RowFixed>
-                <TYPE.small fontWeight={400}>
+                <TYPE.small fontWeight={600}>
                   {formattedNum(poolOwnership * parseFloat(position.pair.reserve0))}{' '}
                 </TYPE.small>
                 <FormattedName
                   text={position.pair.token0.symbol}
                   maxCharacters={below740 ? 10 : 18}
                   margin={true}
-                  fontSize={'14px'}
+                  fontSize={'11px'}
                 />
               </RowFixed>
               <RowFixed>
-                <TYPE.small fontWeight={400}>
+                <TYPE.small fontWeight={600}>
                   {formattedNum(poolOwnership * parseFloat(position.pair.reserve1))}{' '}
                 </TYPE.small>
                 <FormattedName
                   text={position.pair.token1.symbol}
                   maxCharacters={below740 ? 10 : 18}
                   margin={true}
-                  fontSize={'14px'}
+                  fontSize={'11px'}
                 />
               </RowFixed>
             </AutoColumn>
@@ -211,7 +211,7 @@ function PositionList({ positions }) {
               </TYPE.main>
               <AutoColumn gap="4px" justify="flex-end">
                 <RowFixed>
-                  <TYPE.small fontWeight={400}>
+                  <TYPE.small fontWeight={600}>
                     {parseFloat(position.pair.token0.derivedETH)
                       ? formattedNum(
                           position?.fees.sum / (parseFloat(position.pair.token0.derivedETH) * ethPrice) / 2,
@@ -224,11 +224,11 @@ function PositionList({ positions }) {
                     text={position.pair.token0.symbol}
                     maxCharacters={below740 ? 10 : 18}
                     margin={true}
-                    fontSize={'14px'}
+                    fontSize={'11px'}
                   />
                 </RowFixed>
                 <RowFixed>
-                  <TYPE.small fontWeight={400}>
+                  <TYPE.small fontWeight={600}>
                     {parseFloat(position.pair.token1.derivedETH)
                       ? formattedNum(
                           position?.fees.sum / (parseFloat(position.pair.token1.derivedETH) * ethPrice) / 2,
@@ -241,7 +241,7 @@ function PositionList({ positions }) {
                     text={position.pair.token1.symbol}
                     maxCharacters={below740 ? 10 : 18}
                     margin={true}
-                    fontSize={'14px'}
+                    fontSize={'11px'}
                   />
                 </RowFixed>
               </AutoColumn>

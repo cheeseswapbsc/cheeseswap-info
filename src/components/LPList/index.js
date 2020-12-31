@@ -67,11 +67,11 @@ const DataText = styled(Flex)`
   text-align: center;
   color: ${({ theme }) => theme.text1};
   & > * {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   @media screen and (max-width: 600px) {
-    font-size: 16px;
+    font-size: 13px;
   }
 `
 
@@ -103,11 +103,11 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
     return (
       <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
         {!below600 && (
-          <DataText area="number" fontWeight="500">
+          <DataText area="number" fontWeight="700">
             {index}
           </DataText>
         )}
-        <DataText area="name" fontWeight="500" justifyContent="flex-start">
+        <DataText area="name" fontWeight="700" justifyContent="flex-start">
           <CustomLink style={{ marginLeft: below600 ? 0 : '1rem', whiteSpace: 'nowrap' }} to={'/account/' + lp.user.id}>
             {below800 ? lp.user.id.slice(0, 4) + '...' + lp.user.id.slice(38, 42) : lp.user.id}
           </CustomLink>

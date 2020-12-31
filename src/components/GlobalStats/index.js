@@ -15,7 +15,7 @@ const Header = styled.div`
 `
 
 const Medium = styled.span`
-  font-weight: 500;
+  font-weight: 600;
 `
 
 export default function GlobalStats() {

@@ -67,7 +67,7 @@ const Input = styled.input`
   outline: none;
   width: 100%;
   color: ${({ theme }) => theme.text1};
-  font-size: ${({ large }) => (large ? '20px' : '16px')};
+  font-size: ${({ large }) => (large ? '20px' : '14px')};
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
@@ -110,10 +110,10 @@ const Menu = styled.div`
   width: 100%;
   top: 50px;
   max-height: 540px;
-  overflow: auto;
+  overflow: scroll;
   left: 0;
   padding-bottom: 20px;
-  background: ${({ theme }) => theme.bg7};
+  background: ${({ theme }) => theme.bg6};
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),

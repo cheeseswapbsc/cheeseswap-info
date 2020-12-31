@@ -51,7 +51,7 @@ const GlobalChart = ({ display }) => {
           if (item.date > utcStartTime) {
             return item
           } else {
-            return
+            return  !!item
           }
         })
         .filter(item => {

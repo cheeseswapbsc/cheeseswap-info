@@ -104,7 +104,7 @@ const TradingViewChart = ({
         grid: {
           horzLines: {
             color: 'rgba(181, 68, 155, 0.5)',
-            visible: false
+            visible: true
           },
           vertLines: {
             color: 'rgba(181, 68, 155, 0.5)',

@@ -43,7 +43,7 @@ const UserChart = ({ account }) => {
       {below600 ? (
         <RowBetween mb={40}>
           <div />
-          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#4FD8DE'} />
+          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#D455B5'} />
         </RowBetween>
       ) : (
         <RowBetween mb={40}>
@@ -77,8 +77,8 @@ const UserChart = ({ account }) => {
           <AreaChart margin={{ top: 0, right: 10, bottom: 6, left: 0 }} barCategoryGap={1} data={chartData}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={'#4FD8DE'} stopOpacity={0.35} />
-                <stop offset="95%" stopColor={'#4FD8DE'} stopOpacity={0} />
+                <stop offset="5%" stopColor={'#D455B5'} stopOpacity={0.35} />
+                <stop offset="95%" stopColor={'#D455B5'} stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis
@@ -112,7 +112,7 @@ const UserChart = ({ account }) => {
               contentStyle={{
                 padding: '10px 14px',
                 borderRadius: 10,
-                borderColor: '#4FD8DE',
+                borderColor: '#D455B5',
                 color: 'black'
               }}
               wrapperStyle={{ top: -70, left: -10 }}
@@ -126,7 +126,7 @@ const UserChart = ({ account }) => {
               type="monotone"
               name={'Liquidity'}
               yAxisId={0}
-              stroke={darken(0.12, '#4FD8DE')}
+              stroke={darken(0.12, '#D455B5')}
               fill="url(#colorUv)"
             />
           </AreaChart>

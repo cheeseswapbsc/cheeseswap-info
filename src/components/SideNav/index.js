@@ -114,7 +114,7 @@ function SideNav({ history }) {
           <AutoColumn gap="1rem" style={{ marginLeft: '.75rem', marginTop: '1.5rem' }}>
             <Title />
             {!below1080 && (
-              <AutoColumn gap="1.25rem" style={{ marginTop: '1rem' }}>
+              <AutoColumn gap="0.5rem" style={{ marginTop: '0.5rem' }}>
               <Link href="https://cheeseswap.app" target="_blank">
                 <Option>
                   <RefreshCcw size={20} style={{ marginRight: '.75rem' }} />
@@ -186,12 +186,12 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://t.me/cheesemakerfarm" target="_blank">
+              <Link href="https://t.me/cheeseswapbsc" target="_blank">
                 Telegram
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://twitter.com/cheesemakerbsc" target="_blank">
+              <Link href="https://twitter.com/cheeseswapbsc" target="_blank">
                 Twitter
               </Link>
             </HeaderText>

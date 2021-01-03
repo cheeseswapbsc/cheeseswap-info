@@ -123,7 +123,7 @@ const Menu = styled.div`
 
 const MenuItem = styled(Row)`
   padding: 1rem;
-  font-size: 0.85rem;
+  font-size: 18px;
   & > * {
     margin-right: 6px;
   }

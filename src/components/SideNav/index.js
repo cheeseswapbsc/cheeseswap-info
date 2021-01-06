@@ -186,7 +186,7 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://t.me/cheeseswapbsc" target="_blank">
+              <Link href="https://t.me/cheesemakerfarm" target="_blank">
                 Telegram
               </Link>
             </HeaderText>

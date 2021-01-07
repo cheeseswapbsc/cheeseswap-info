@@ -12,7 +12,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://raw.githubusercontent.com/cheesemakerfarm/cheeseswap-interface/master/src/constants/token/cheeseswap.json'
+  'https://raw.githubusercontent.com/cheeseswapbsc/cheeseswap-interface/master/src/constants/token/cheeseswap.json'
 ]
 
 // hide from overview list

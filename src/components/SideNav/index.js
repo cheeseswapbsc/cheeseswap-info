@@ -176,6 +176,12 @@ function SideNav({ history }) {
                       Hybrid Staking<br />
                   </Option>
                 </Link>
+                 <Link href="https://api.cheeseswap.app" target="_blank">
+                  <Option>
+                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
+                      API<br />
+                  </Option>
+                </Link>
               </AutoColumn>
             )}
           </AutoColumn>

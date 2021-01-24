@@ -111,7 +111,7 @@ const UserChart = ({ account }) => {
               labelStyle={{ paddingTop: 4 }}
               contentStyle={{
                 padding: '10px 14px',
-                borderRadius: 10,
+                borderRadius: 16,
                 borderColor: '#D455B5',
                 color: 'black'
               }}

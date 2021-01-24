@@ -20,7 +20,7 @@ export const healthClient = new ApolloClient({
 
 export const v1Client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://graph.chipsfryer.world/subgraphs/name/blockartist/cheesegraph3'
+    uri: 'https://graph.chipsfryer.world/subgraphs/name/blockartist/cheesegraph'
   }),
   cache: new InMemoryCache(),
   shouldBatch: true

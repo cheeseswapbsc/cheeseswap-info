@@ -92,7 +92,7 @@ function PinnedData({ history, open, setSavedOpen }) {
                         <TYPE.header>
                           <FormattedName
                             text={pair.token0Symbol + '/' + pair.token1Symbol}
-                            maxCharacters={12}
+                            maxCharacters={16}
                             fontSize={'16px'}
                           />
                         </TYPE.header>
@@ -127,7 +127,7 @@ function PinnedData({ history, open, setSavedOpen }) {
                       <RowFixed>
                         <TokenLogo address={address} size={'14px'} />
                         <TYPE.header ml={'6px'}>
-                          <FormattedName text={token.symbol} maxCharacters={12} fontSize={'16px'} />
+                          <FormattedName text={token.symbol} maxCharacters={16} fontSize={'16px'} />
                         </TYPE.header>
                       </RowFixed>
                     </ButtonFaded>

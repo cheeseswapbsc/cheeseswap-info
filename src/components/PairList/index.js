@@ -151,7 +151,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
     if (pairData && pairData.token0 && pairData.token1) {
       const liquidity = formattedNum(pairData.reserveUSD, true)
       const volume = formattedNum(pairData.oneDayVolumeUSD, true)
-      const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD)
+     // const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD)
 
       return (
         <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
@@ -174,10 +174,10 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
           </DataText>
           <DataText area="liq">{liquidity}</DataText>
           <DataText area="vol">{volume}</DataText>
-          <DataText area="apy">{apy}</DataText>
+       { /* <DataText area="apy">{apy}</DataText> */ }
           {!below1080 && <DataText area="volWeek">{formattedNum(pairData.oneWeekVolumeUSD, true)}</DataText>}
           {!below1080 && <DataText area="fees">{formattedNum(pairData.oneDayVolumeUSD * 0.003, true)}</DataText>}
-          {!below1080 && <DataText area="apy">{formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100,) / pairData.reserveUSD, true)}</DataText>}
+          {!below1080 && <DataText area="apy">{formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD, true)}</DataText>}
         </DashGrid>
       )
     } else {

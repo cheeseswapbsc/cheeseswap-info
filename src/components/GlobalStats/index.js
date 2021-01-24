@@ -5,7 +5,7 @@ import { useMedia } from 'react-use'
 import { useGlobalData, useEthPrice } from '../../contexts/GlobalData'
 import { formattedNum, localNumber } from '../../utils'
 
-import UniPrice from '../UniPrice'
+//import UniPrice from '../UniPrice'
 import { TYPE } from '../../Theme'
 
 const Header = styled.div`
@@ -48,22 +48,22 @@ export default function GlobalStats() {
               style={{ position: 'relative' }}
             >
               BNB Price: <Medium>{formattedEthPrice}</Medium>
-              {showPriceCard && <UniPrice />}
+           { /*  {<UniPrice />} */ }
             </TYPE.main>
           )}
 
           {!below1180 && (
-            <TYPE.main mr={'1rem'}>
+            <TYPE.main mr={'1.2rem'}>
               Transactions (24H): <Medium>{localNumber(oneDayTxns)}</Medium>
             </TYPE.main>
           )}
           {!below1024 && (
-            <TYPE.main mr={'1rem'}>
+            <TYPE.main mr={'1.2rem'}>
               Pairs: <Medium>{localNumber(pairCount)}</Medium>
             </TYPE.main>
           )}
           {!below1295 && (
-            <TYPE.main mr={'1rem'}>
+            <TYPE.main mr={'1.2rem'}>
               Fees (24H): <Medium>{oneDayFees}</Medium>&nbsp;
             </TYPE.main>
           )}

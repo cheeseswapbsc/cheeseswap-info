@@ -91,12 +91,12 @@ const GlobalChart = ({ display }) => {
             title="Liquidity"
             field="totalLiquidityUSD"
             width={width}
-            type={CHART_TYPES.AREA}
+            type={CHART_TYPES.BAR}
           />
         </ResponsiveContainer>
       )}
       {chartDataFiltered && chartView === CHART_VIEW.VOLUME && (
-        <ResponsiveContainer aspect={60 / 28}>
+        <ResponsiveContainer aspect={60 / 28} ref={ref}>
           <TradingViewChart
             data={chartDataFiltered}
             base={volumeWindow === VOLUME_WINDOW.WEEKLY ? oneWeekVolume : oneDayVolumeUSD}

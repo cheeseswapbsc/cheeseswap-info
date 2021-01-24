@@ -112,10 +112,11 @@ const FIELD_TO_VALUE = {
   [SORT_FIELD.LIQ]: 'trackedReserveUSD', // sort with tracked volume only
   [SORT_FIELD.VOL]: 'oneDayVolumeUSD',
   [SORT_FIELD.VOL_7DAYS]: 'oneWeekVolumeUSD',
-  [SORT_FIELD.FEES]: 'oneDayVolumeUSD'
+  [SORT_FIELD.FEES]: 'oneDayVolumeUSD',
+  [SORT_FIELD.APY]: 'apy'
 }
 
-function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
+function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
   const below600 = useMedia('(max-width: 600px)')
   const below740 = useMedia('(max-width: 740px)')
   const below1080 = useMedia('(max-width: 1080px)')
@@ -173,9 +174,10 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
           </DataText>
           <DataText area="liq">{liquidity}</DataText>
           <DataText area="vol">{volume}</DataText>
+          <DataText area="apy">{apy}</DataText>
           {!below1080 && <DataText area="volWeek">{formattedNum(pairData.oneWeekVolumeUSD, true)}</DataText>}
           {!below1080 && <DataText area="fees">{formattedNum(pairData.oneDayVolumeUSD * 0.003, true)}</DataText>}
-          {!below1080 && <DataText area="apy">{apy}</DataText>}
+          {!below1080 && <DataText area="apy">{formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100,) / pairData.reserveUSD, true)}</DataText>}
         </DashGrid>
       )
     } else {

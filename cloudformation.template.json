@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "uniswap.info site",
+  "Description": "CheeseSwap Info",
   "Outputs": {
     "DeploymentAccessKeyId": {
       "Description": "Access key ID for deploying to the S3 bucket",
@@ -87,7 +87,7 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "uniswap.info"
+            "Value": "info.cheeseswap.app"
           },
           {
             "Key": "Stack",
@@ -241,10 +241,10 @@
               "ResponsePagePath": "/"
             }
           ],
-          "Comment": "uniswap.info",
+          "Comment": "info.cheeseswap.app",
           "Enabled": true,
           "Aliases": [
-            "uniswap.info"
+            "info.cheeseswap.app"
           ],
           "DefaultRootObject": "index.html",
           "HttpVersion": "http2",

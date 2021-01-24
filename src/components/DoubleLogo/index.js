@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import TokenLogo from '../TokenLogo'
 
-export default function DoubleTokenLogo({ a0, a1, size = 24, margin = false }) {
+export default function DoubleTokenLogo({ a0, a1, size = 26, margin = false }) {
   const TokenWrapper = styled.div`
     position: relative;
     display: flex;
@@ -12,14 +12,14 @@ export default function DoubleTokenLogo({ a0, a1, size = 24, margin = false }) {
 
   const HigherLogo = styled(TokenLogo)`
     z-index: 2;
-    background-color: white;
+    background-color: none;
     border-radius: 50%;
   `
 
   const CoveredLogo = styled(TokenLogo)`
     position: absolute;
     left: ${({ sizeraw }) => (sizeraw / 2).toString() + 'px'};
-    background-color: white;
+    background-color: none;
     border-radius: 50%;
   `
 

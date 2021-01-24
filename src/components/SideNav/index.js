@@ -7,7 +7,7 @@ import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { RefreshCcw, TrendingUp, List, PieChart, Disc, DollarSign, Lock } from 'react-feather'
+import { RefreshCcw, TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -170,16 +170,16 @@ function SideNav({ history }) {
                       KP3RB
                   </Option>
                 </Link>
+                <Link href="https://farm.cheeseswap.app" target="_blank">
+                  <Option>
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
+                      Farm<br />
+                  </Option>
+                </Link>
                 <Link href="https://stake.cheeseswap.app" target="_blank">
                   <Option>
                     <DollarSign size={20} style={{ marginRight: '.75rem' }} />
                       Hybrid Staking<br />
-                  </Option>
-                </Link>
-                <Link href="https://farm.cheeseswap.app" target="_blank">
-                  <Option>
-                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
-                      Farm<br />
                   </Option>
                 </Link>
               </AutoColumn>

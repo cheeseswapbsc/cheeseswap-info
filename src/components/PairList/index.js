@@ -116,7 +116,7 @@ const FIELD_TO_VALUE = {
   [SORT_FIELD.APY]: 'apy'
 }
 
-function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
+function PairList({ pairs, color, disbaleLinks, maxItems = 20 }) {
   const below600 = useMedia('(max-width: 600px)')
   const below740 = useMedia('(max-width: 740px)')
   const below1080 = useMedia('(max-width: 1080px)')
@@ -151,7 +151,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
     if (pairData && pairData.token0 && pairData.token1) {
       const liquidity = formattedNum(pairData.reserveUSD, true)
       const volume = formattedNum(pairData.oneDayVolumeUSD, true)
-     // const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD)
+      const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD)
 
       return (
         <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
@@ -174,10 +174,9 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
           </DataText>
           <DataText area="liq">{liquidity}</DataText>
           <DataText area="vol">{volume}</DataText>
-       { /* <DataText area="apy">{apy}</DataText> */ }
           {!below1080 && <DataText area="volWeek">{formattedNum(pairData.oneWeekVolumeUSD, true)}</DataText>}
           {!below1080 && <DataText area="fees">{formattedNum(pairData.oneDayVolumeUSD * 0.003, true)}</DataText>}
-          {!below1080 && <DataText area="apy">{formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD, true)}</DataText>}
+          {!below1080 && <DataText area="apy">{apy}</DataText>}
         </DashGrid>
       )
     } else {
@@ -280,7 +279,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 15 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.APY ? true : !sortDirection)
               }}
             >
-              1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? '↑' : '↓') : ''}
+              APY (%) {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? '↑' : '↓') : ''}
             </ClickableText>
             <QuestionHelper text={'Based on 24hr volume annualized'} />
           </Flex>

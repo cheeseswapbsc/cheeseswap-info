@@ -19,7 +19,7 @@ const Dashboard = styled(Box)`
     width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-      'statsHeader statsHeader statsHeader'
+   { /*'statsHeader statsHeader statsHeader' */ }
       'fill fill fill'
       'pairHeader pairHeader pairHeader'
       'transactions2  transactions2 transactions2'

@@ -39,18 +39,12 @@ export default function GlobalStats() {
           {!below400 && (
             <TYPE.main
               mr={'1rem'}
-              onMouseEnter={() => {
-                setShowPriceCard(true)
-              }}
-              onMouseLeave={() => {
-                setShowPriceCard(false)
-              }}
               style={{ position: 'relative' }}
             >
               BNB Price: <Medium>{formattedEthPrice}</Medium>
-           { /*  {<UniPrice />} */ }
+            {/* {showPriceCard && <UniPrice />} */}
             </TYPE.main>
-          )}
+          )} 
 
           {!below1180 && (
             <TYPE.main mr={'1.2rem'}>

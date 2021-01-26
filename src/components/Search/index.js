@@ -67,7 +67,7 @@ const Input = styled.input`
   outline: none;
   width: 100%;
   color: ${({ theme }) => theme.text1};
-  font-size: ${({ large }) => (large ? '22px' : '18px')};
+  font-size: ${({ large }) => (large ? '20px' : '16px')};
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
@@ -123,7 +123,7 @@ const Menu = styled.div`
 
 const MenuItem = styled(Row)`
   padding: 1rem;
-  font-size: 18px;
+  font-size: 14px;
   & > * {
     margin-right: 6px;
   }

@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 
 const Option = styled.div`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   opacity: ${({ activeText }) => (activeText ? 1 : 0.6)};
   color: ${({ theme }) => theme.white};
   display: flex;

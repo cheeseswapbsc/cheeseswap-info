@@ -190,7 +190,7 @@ function TokenPage({ address, history }) {
               external
               href={'https://bscscan.com/address/' + address}
             >
-              <Text style={{ marginLeft: '.15rem' }} fontSize={'18px'} fontWeight={600}>
+              <Text style={{ marginLeft: '.15rem' }} fontSize={'14px'} fontWeight={600}>
                 ({address.slice(0, 8) + '...' + address.slice(36, 42)})
               </Text>
             </Link>
@@ -353,20 +353,20 @@ function TokenPage({ address, history }) {
                 <TokenDetailsLayout>
                   <Column>
                     <TYPE.main>Symbol</TYPE.main>
-                    <Text style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="700">
+                    <Text style={{ marginTop: '.5rem' }} fontSize={20} fontWeight="700">
                       <FormattedName text={symbol} maxCharacters={12} />
                     </Text>
                   </Column>
                   <Column>
                     <TYPE.main>Name</TYPE.main>
-                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="700">
+                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={20} fontWeight="700">
                       <FormattedName text={name} maxCharacters={16} />
                     </TYPE.main>
                   </Column>
                   <Column>
                     <TYPE.main>Address</TYPE.main>
                     <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="700">
+                      <TYPE.main style={{ marginTop: '.5rem' }} fontSize={20} fontWeight="700">
                         {address.slice(0, 8) + '...' + address.slice(36, 42)}
                       </TYPE.main>
                       <CopyHelper toCopy={address} />

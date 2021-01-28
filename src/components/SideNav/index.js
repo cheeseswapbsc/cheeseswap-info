@@ -7,7 +7,7 @@ import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { RefreshCcw, TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise } from 'react-feather'
+import { RefreshCcw, TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise, Star } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 
 const Option = styled.div`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   opacity: ${({ activeText }) => (activeText ? 1 : 0.6)};
   color: ${({ theme }) => theme.white};
   display: flex;
@@ -168,6 +168,12 @@ function SideNav({ history }) {
                   <Option>
                     <Lock size={20} style={{ marginRight: '.75rem' }} />
                       KP3RB
+                  </Option>
+                </Link>
+                <Link href="https://pizzafinance.app" target="_blank">
+                  <Option>
+                    <Star size={20} style={{ marginRight: '.75rem' }} />
+                      Pizza🍕<br />
                   </Option>
                 </Link>
                 <Link href="https://farm.cheeseswap.app" target="_blank">

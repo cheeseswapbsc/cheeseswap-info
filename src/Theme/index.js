@@ -82,15 +82,15 @@ const TextWrapper = styled(Text)`
 
 export const TYPE = {
   main(props) {
-    return <TextWrapper fontWeight={700} fontSize={18} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={700} fontSize={14} color={'text1'} {...props} />
   },
 
   body(props) {
-    return <TextWrapper fontWeight={600} fontSize={18} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={600} fontSize={14} color={'text1'} {...props} />
   },
 
   small(props) {
-    return <TextWrapper fontWeight={700} fontSize={14} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={700} fontSize={12} color={'text1'} {...props} />
   },
 
   header(props) {
@@ -98,11 +98,11 @@ export const TYPE = {
   },
 
   largeHeader(props) {
-    return <TextWrapper fontWeight={700} color={'text1'} fontSize={24} {...props} />
+    return <TextWrapper fontWeight={700} color={'text1'} fontSize={20} {...props} />
   },
 
   light(props) {
-    return <TextWrapper fontWeight={600} color={'text3'} fontSize={18} {...props} />
+    return <TextWrapper fontWeight={600} color={'text3'} fontSize={14} {...props} />
   },
 
   pink(props) {
@@ -156,10 +156,10 @@ export const ThemedBackground = styled.div`
 `
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700;800&display=swap');
-  html { font-family: 'Teko', sans-serif; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap');
+  html { font-family: 'Noto Sans', sans-serif; }
   @supports (font-variation-settings: normal) {
-    html { font-family: 'Teko', sans-serif; }
+    html { font-family: 'Noto Sans', sans-serif; }
   }
 
   html,
@@ -168,7 +168,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     height: 100%;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
     background-color: ${({ theme }) => theme.bg6};
   }

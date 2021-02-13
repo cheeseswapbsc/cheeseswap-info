@@ -208,6 +208,11 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
+              <Link href="https://docs.cheeseswap.app" target="_blank">
+                Docs
+              </Link>
+            </HeaderText>
+            <HeaderText>
               <Link href="https://api.cheeseswap.app" target="_blank">
                 API
               </Link>

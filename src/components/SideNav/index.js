@@ -208,7 +208,7 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://docs.cheeseswap.app" target="_blank">
+              <Link href="https://docs.cheesemaker.farm/" target="_blank">
                 Docs
               </Link>
             </HeaderText>

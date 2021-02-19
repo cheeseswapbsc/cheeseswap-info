@@ -7,7 +7,7 @@ import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { RefreshCcw, TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise, Star } from 'react-feather'
+import { TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise, Star } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -115,12 +115,6 @@ function SideNav({ history }) {
             <Title />
             {!below1080 && (
               <AutoColumn gap="0.5rem" style={{ marginTop: '0.5rem' }}>
-              <Link href="https://cheeseswap.app" target="_blank">
-                <Option>
-                  <RefreshCcw size={20} style={{ marginRight: '.75rem' }} />
-                    CheeseSwap
-                </Option>
-              </Link>
                 <BasicLink to="/home">
                   <Option activeText={history.location.pathname === '/home' ?? undefined}>
                     <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
@@ -170,6 +164,12 @@ function SideNav({ history }) {
                       KP3RB
                   </Option>
                 </Link>
+                <Link href="https://kiwiswap.finance/" target="_blank">
+                  <Option>
+                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
+                      Kiwi🥝<br />
+                  </Option>
+                </Link>
                 <Link href="https://pizzafinance.app" target="_blank">
                   <Option>
                     <Star size={20} style={{ marginRight: '.75rem' }} />
@@ -180,12 +180,6 @@ function SideNav({ history }) {
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />
                       Farm<br />
-                  </Option>
-                </Link>
-                <Link href="https://stake.cheeseswap.app" target="_blank">
-                  <Option>
-                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
-                      Hybrid Staking<br />
                   </Option>
                 </Link>
               </AutoColumn>
@@ -215,6 +209,11 @@ function SideNav({ history }) {
             <HeaderText>
               <Link href="https://api.cheeseswap.app" target="_blank">
                 API
+              </Link>
+            </HeaderText>
+            <HeaderText>
+              <Link href="https://data.cheeseswap.app/totalliquidity" target="_blank">
+                TVL
               </Link>
             </HeaderText>
             <Toggle isActive={isDark} toggle={toggleDarkMode} />

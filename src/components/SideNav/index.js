@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { AutoColumn } from '../Column'
+import { AutoColumn, AutoColumnImg } from '../Column'
 import Title from '../Title'
 import { BasicLink } from '../Link'
 import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise, Star } from 'react-feather'
+import { TrendingUp, List, PieChart, Disc, DollarSign, Lock, Sunrise, RefreshCw, Home, Send, Twitter, BookOpen, GitMerge } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -60,7 +60,6 @@ const MobileWrapper = styled.div`
 `
 
 const HeaderText = styled.div`
-  margin-right: 0.75rem;
   font-size: 0.825rem;
   font-weight: 700;
   display: inline-box;
@@ -114,7 +113,7 @@ function SideNav({ history }) {
           <AutoColumn gap="1rem" style={{ marginLeft: '.75rem', marginTop: '1.5rem' }}>
             <Title />
             {!below1080 && (
-              <AutoColumn gap="0.5rem" style={{ marginTop: '0.5rem' }}>
+              <AutoColumn gap="0.75rem" style={{ marginTop: '0.5rem' }}>
                 <BasicLink to="/home">
                   <Option activeText={history.location.pathname === '/home' ?? undefined}>
                     <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
@@ -158,21 +157,27 @@ function SideNav({ history }) {
                     Accounts
                   </Option>
                 </BasicLink>
+                <Link href="https://bscindex.com/#exchange" target="_blank">
+                  <Option>
+                    <RefreshCw size={20} style={{ marginRight: '.75rem' }} />
+                      Exchange<br />
+                  </Option>
+                </Link>
                 <Link href="https://keep3rb.network" target="_blank">
                   <Option>
                     <Lock size={20} style={{ marginRight: '.75rem' }} />
-                      KP3RB
+                      Keeper
                   </Option>
                 </Link>
                 <Link href="https://kiwiswap.finance/" target="_blank">
                   <Option>
-                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
                       Kiwi🥝<br />
                   </Option>
                 </Link>
                 <Link href="https://pizzafinance.app" target="_blank">
                   <Option>
-                    <Star size={20} style={{ marginRight: '.75rem' }} />
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
                       Pizza🍕<br />
                   </Option>
                 </Link>
@@ -182,42 +187,48 @@ function SideNav({ history }) {
                       Farm<br />
                   </Option>
                 </Link>
+                <Link href="https://pizzafinance.app/ido" target="_blank">
+                  <Option>
+                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
+                      IDO<br />
+                  </Option>
+                </Link>
               </AutoColumn>
             )}
           </AutoColumn>
-          <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem', marginTop: '2rem' }}>
+          <AutoColumnImg gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem', marginTop: '2rem' }}>
             <HeaderText>
               <Link href="https://cheeseswap.app/" target="_blank">
-                CheeseSwap
+                <Home size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
               <Link href="https://t.me/cheesemakerfarm" target="_blank">
-                Telegram
+                <Send size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
               <Link href="https://twitter.com/cheeseswapbsc" target="_blank">
-                Twitter
+                <Twitter size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
               <Link href="https://docs.cheesemaker.farm/" target="_blank">
-                Docs
+                <BookOpen size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
               <Link href="https://api.cheeseswap.app" target="_blank">
-                API
+                <GitMerge size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
               <Link href="https://data.cheeseswap.app/totalliquidity" target="_blank">
-                TVL
+                <TrendingUp size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <Toggle isActive={isDark} toggle={toggleDarkMode} />
-          </AutoColumn>
+          </AutoColumnImg>
           {!below1180 && (
             <Polling style={{ marginLeft: '.5rem' }}>
               <PollingDot />

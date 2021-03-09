@@ -17,4 +17,7 @@ export const AutoColumn = styled.div`
   justify-items: ${({ justify }) => justify && justify};
 `
 
+export const AutoColumnImg = styled.div`
+  justify-items: ${({ justify }) => justify && justify};
+`
 export default Column

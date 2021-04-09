@@ -157,7 +157,7 @@ function SideNav({ history }) {
                     Accounts
                   </Option>
                 </BasicLink>
-                <Link href="https://bscindex.com/#exchange" target="_blank">
+                <Link href="https://cheeseswap.app" target="_blank">
                   <Option>
                     <RefreshCw size={20} style={{ marginRight: '.75rem' }} />
                       Exchange<br />

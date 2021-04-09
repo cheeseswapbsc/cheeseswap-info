@@ -2,7 +2,7 @@
   "name": "cheeseswap-info",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": "https://info.cheeseswap.app",
   "dependencies": {
     "@popperjs/core": "^2.4.2",
     "@reach/portal": "^0.10.3",

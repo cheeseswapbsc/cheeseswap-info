@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
+import { HashRouter, Route, Switch, Redirect  } from 'react-router-dom'
 import styled from 'styled-components'
 import { ApolloProvider } from 'react-apollo'
 import { client } from './apollo/client'
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
+// import { Route, Switch, BrowserRouter, } from 'react-router-dom'
 import GlobalPage from './pages/GlobalPage'
 import TokenPage from './pages/TokenPage'
 import PairPage from './pages/PairPage'
@@ -12,7 +13,7 @@ import AccountPage from './pages/AccountPage'
 import AllTokensPage from './pages/AllTokensPage'
 import AllPairsPage from './pages/AllPairsPage'
 import PinnedData from './components/PinnedData'
-
+import GoogleAnalyticsReporter from './components/analytics/GoogleAnalyticsReporter'
 import SideNav from './components/SideNav'
 import AccountLookup from './pages/AccountLookup'
 import { OVERVIEW_TOKEN_BLACKLIST, PAIR_BLACKLIST } from './constants'
@@ -85,14 +86,17 @@ function App() {
   const latestBlock = useLatestBlock()
 
   return (
+    <Suspense fallback={null}>
     <ApolloProvider client={client}>
+       <HashRouter>
+         <Route component={GoogleAnalyticsReporter} />
       <AppWrapper>
         {latestBlock &&
         globalData &&
         Object.keys(globalData).length > 0 &&
         globalChartData &&
         Object.keys(globalChartData).length > 0 ? (
-          <BrowserRouter>
+
             <Switch>
               <Route
                 exacts
@@ -175,12 +179,14 @@ function App() {
 
               <Redirect to="/home" />
             </Switch>
-          </BrowserRouter>
-        ) : (
+          ) : (
           <LocalLoader fill="true" />
         )}
       </AppWrapper>
-    </ApolloProvider>
+
+   </HashRouter>
+   </ApolloProvider>
+  </Suspense>
   )
 }
 

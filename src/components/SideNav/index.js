@@ -169,28 +169,34 @@ function SideNav({ history }) {
                       Keeper
                   </Option>
                 </Link>
-                <Link href="https://kiwiswap.finance/" target="_blank">
-                  <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                      Kiwi🥝<br />
-                  </Option>
-                </Link>
                 <Link href="https://pizzafinance.app" target="_blank">
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />
                       Pizza🍕<br />
                   </Option>
                 </Link>
-                <Link href="https://farm.cheeseswap.app" target="_blank">
+                   <Link href="https://kiwifinance.co" target="_blank">
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                      Farm<br />
+                      Kiwi🥝<br />
                   </Option>
                 </Link>
-                <Link href="https://pizzafinance.app/ido" target="_blank">
+                <Link href="https://cheesemaker.farm" target="_blank">
                   <Option>
-                    <DollarSign size={20} style={{ marginRight: '.75rem' }} />
-                      IDO<br />
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
+                     CNFT Farm🧀<br />
+                  </Option>
+                </Link>
+                <Link href="https://www.cheesecake.best" target="_blank">
+                  <Option>
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
+                     Cheese Cake NFT🧀<br />
+                  </Option>
+                </Link>
+                <Link href="https://clp.cheeseswap.app" target="_blank">
+                  <Option>
+                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
+                     Launchpad🚀<br />
                   </Option>
                 </Link>
               </AutoColumn>

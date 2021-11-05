@@ -20,6 +20,7 @@
     "apollo-client": "^2.6.4",
     "apollo-link-http": "^1.5.16",
     "bignumber.js": "^9.0.0",
+    "caniuse-lite": "^1.0.30001267",
     "color-contrast-checker": "^1.5.0",
     "copy-to-clipboard": "^3.3.1",
     "dayjs": "^1.8.16",
@@ -68,7 +69,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI= react-scripts build",
+    "build": "rm -rf ./build && CI= GENERATE_SOURCEMAP=false react-scripts build --production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:base": "yarn eslint './src/**/*.{js,jsx}'",

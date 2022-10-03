@@ -169,7 +169,7 @@ function SideNav({ history }) {
                       Keeper
                   </Option>
                 </Link>
-                <Link href="https://pizzafinance.app" target="_blank">
+                <Link href="https://pizzaswap.network" target="_blank">
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />
                       Pizza🍕<br />
@@ -193,10 +193,10 @@ function SideNav({ history }) {
                      Cheese Cake NFT🧀<br />
                   </Option>
                 </Link>
-                <Link href="https://clp.cheeseswap.app" target="_blank">
+                <Link href="#SOON" target="_blank">
                   <Option>
                     <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                     Launchpad🚀<br />
+                     P2E Games🚀<br />
                   </Option>
                 </Link>
               </AutoColumn>

@@ -122,7 +122,7 @@ const PairChart = ({ address, color, base0, base1 }) => {
         </RowBetween>
       ) : (
         <OptionsRow>
-          <AutoRow gap="6px" style={{ flexWrap: 'nowrap' }}>
+          <AutoRow gap="4px" style={{ flexWrap: 'nowrap' }}>
             <OptionButton
               active={chartFilter === CHART_VIEW.LIQUIDITY}
               onClick={() => {

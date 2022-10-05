@@ -163,10 +163,10 @@ function SideNav({ history }) {
                       Exchange<br />
                   </Option>
                 </Link>
-                <Link href="https://keep3rb.network" target="_blank">
+                <Link href="https://hotswap.link" target="_blank">
                   <Option>
                     <Lock size={20} style={{ marginRight: '.75rem' }} />
-                      Keeper
+                      HOTS Farm🌭
                   </Option>
                 </Link>
                 <Link href="https://pizzaswap.network" target="_blank">

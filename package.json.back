@@ -68,8 +68,8 @@
     "web3-react": "^5.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "rm -rf ./build && sourcemap=false && react-scripts build --production",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "cd . && export NODE_OPTIONS=--openssl-legacy-provider && rm -rf ./build && sourcemap=false && react-scripts build --production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:base": "yarn eslint './src/**/*.{js,jsx}'",

@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import getTokenList from '../utils/tokenLists'
 import { healthClient } from '../apollo/client'
-import { SUBGRAPH_HEALTH } from '../apollo/queries'
+import { GET_BLOCK } from '../apollo/queries'
 dayjs.extend(utc)
 
 const UPDATE = 'UPDATE'
@@ -167,15 +167,22 @@ export function useLatestBlock() {
   useEffect(() => {
     async function fetch() {
       try {
+        // Get latest block from blocks subgraph instead of health endpoint (CORS issue)
+        const utcCurrentTime = dayjs().unix()
         const res = await healthClient.query({
-          query: SUBGRAPH_HEALTH
+          query: GET_BLOCK,
+          variables: {
+            timestampFrom: utcCurrentTime - 600,
+            timestampTo: utcCurrentTime
+          },
+          fetchPolicy: 'network-only'
         })
-        const block = res.data.indexingStatusForCurrentVersion.chains[0].latestBlock.number
-        if (block) {
-          updateLatestBlock(block)
+        const blocks = res?.data?.blocks
+        if (blocks && blocks.length > 0) {
+          updateLatestBlock(parseInt(blocks[0].number))
         }
       } catch (e) {
-        console.log(e)
+        console.log('Error fetching latest block:', e)
       }
     }
     if (!latestBlock) {

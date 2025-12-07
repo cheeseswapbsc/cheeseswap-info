@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react'
 
 import { client } from '../apollo/client'
+import { queryWithCache } from '../utils/queryCache'
 import {
   PAIR_DATA,
   PAIR_CHART,
@@ -181,7 +182,7 @@ async function getBulkPairData(pairList, ethPrice) {
   let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
 
   try {
-    let current = await client.query({
+    let current = await queryWithCache(client, {
       query: PAIRS_BULK,
       variables: {
         allPairs: pairList
@@ -191,23 +192,28 @@ async function getBulkPairData(pairList, ethPrice) {
 
     let [oneDayResult, twoDayResult, oneWeekResult] = await Promise.all(
       [b1, b2, bWeek].map(async block => {
-        let result = client.query({
-          query: PAIRS_HISTORICAL_BULK(block, pairList),
-          fetchPolicy: 'cache-first'
-        })
-        return result
+          try {
+          let result = await queryWithCache(client, {
+            query: PAIRS_HISTORICAL_BULK(block, pairList),
+            fetchPolicy: 'cache-first'
+          })
+          return result
+        } catch (e) {
+          console.log('Error fetching historical pair data for block', block, e)
+          return { data: { pairs: [] } }
+        }
       })
     )
 
-    let oneDayData = oneDayResult?.data?.pairs.reduce((obj, cur, i) => {
+    let oneDayData = oneDayResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
-    let twoDayData = twoDayResult?.data?.pairs.reduce((obj, cur, i) => {
+    let twoDayData = twoDayResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
-    let oneWeekData = oneWeekResult?.data?.pairs.reduce((obj, cur, i) => {
+    let oneWeekData = oneWeekResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
@@ -217,27 +223,27 @@ async function getBulkPairData(pairList, ethPrice) {
           let data = pair
           let oneDayHistory = oneDayData?.[pair.id]
           if (!oneDayHistory) {
-            let newData = await client.query({
+            let newData = await queryWithCache(client, {
               query: PAIR_DATA(pair.id, b1),
               fetchPolicy: 'cache-first'
             })
-            oneDayHistory = newData.data.pairs[0]
+            oneDayHistory = newData?.data?.pairs?.[0]
           }
           let twoDayHistory = twoDayData?.[pair.id]
           if (!twoDayHistory) {
-            let newData = await client.query({
+            let newData = await queryWithCache(client, {
               query: PAIR_DATA(pair.id, b2),
               fetchPolicy: 'cache-first'
             })
-            twoDayHistory = newData.data.pairs[0]
+            twoDayHistory = newData?.data?.pairs?.[0]
           }
           let oneWeekHistory = oneWeekData?.[pair.id]
           if (!oneWeekHistory) {
-            let newData = await client.query({
+            let newData = await queryWithCache(client, {
               query: PAIR_DATA(pair.id, bWeek),
               fetchPolicy: 'cache-first'
             })
-            oneWeekHistory = newData.data.pairs[0]
+            oneWeekHistory = newData?.data?.pairs?.[0]
           }
           data = parseData(data, oneDayHistory, twoDayHistory, oneWeekHistory, ethPrice, b1)
           return data
@@ -250,65 +256,69 @@ async function getBulkPairData(pairList, ethPrice) {
 }
 
 function parseData(data, oneDayData, twoDayData, oneWeekData, ethPrice, oneDayBlock) {
+  // Clone the data object to avoid "Object is not extensible" errors from Apollo cache
+  const pairData = { ...data }
+  
   // get volume changes
   const [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
-    data?.volumeUSD,
+    pairData?.volumeUSD,
     oneDayData?.volumeUSD ? oneDayData.volumeUSD : 0,
     twoDayData?.volumeUSD ? twoDayData.volumeUSD : 0
   )
   const [oneDayVolumeUntracked, volumeChangeUntracked] = get2DayPercentChange(
-    data?.untrackedVolumeUSD,
+    pairData?.untrackedVolumeUSD,
     oneDayData?.untrackedVolumeUSD ? parseFloat(oneDayData?.untrackedVolumeUSD) : 0,
     twoDayData?.untrackedVolumeUSD ? twoDayData?.untrackedVolumeUSD : 0
   )
-  const oneWeekVolumeUSD = parseFloat(oneWeekData ? data?.volumeUSD - oneWeekData?.volumeUSD : data.volumeUSD)
+  const oneWeekVolumeUSD = parseFloat(oneWeekData ? pairData?.volumeUSD - oneWeekData?.volumeUSD : pairData.volumeUSD)
 
   // set volume properties
-  data.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
-  data.oneWeekVolumeUSD = oneWeekVolumeUSD
-  data.volumeChangeUSD = volumeChangeUSD
-  data.oneDayVolumeUntracked = oneDayVolumeUntracked
-  data.volumeChangeUntracked = volumeChangeUntracked
+  pairData.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
+  pairData.oneWeekVolumeUSD = oneWeekVolumeUSD
+  pairData.volumeChangeUSD = volumeChangeUSD
+  pairData.oneDayVolumeUntracked = oneDayVolumeUntracked
+  pairData.volumeChangeUntracked = volumeChangeUntracked
 
   // set liquiditry properties
-  data.trackedReserveUSD = data.trackedReserveETH * ethPrice
-  data.liquidityChangeUSD = getPercentChange(data.reserveUSD, oneDayData?.reserveUSD)
+  pairData.trackedReserveUSD = pairData.trackedReserveETH * ethPrice
+  pairData.liquidityChangeUSD = getPercentChange(pairData.reserveUSD, oneDayData?.reserveUSD)
 
   // format if pair hasnt existed for a day or a week
-  if (!oneDayData && data && data.createdAtBlockNumber > oneDayBlock) {
-    data.oneDayVolumeUSD = parseFloat(data.volumeUSD)
+  if (!oneDayData && pairData && pairData.createdAtBlockNumber > oneDayBlock) {
+    pairData.oneDayVolumeUSD = parseFloat(pairData.volumeUSD)
   }
-  if (!oneDayData && data) {
-    data.oneDayVolumeUSD = parseFloat(data.volumeUSD)
+  if (!oneDayData && pairData) {
+    pairData.oneDayVolumeUSD = parseFloat(pairData.volumeUSD)
   }
-  if (!oneWeekData && data) {
-    data.oneWeekVolumeUSD = parseFloat(data.volumeUSD)
+  if (!oneWeekData && pairData) {
+    pairData.oneWeekVolumeUSD = parseFloat(pairData.volumeUSD)
   }
-  if (data?.token0?.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
-    data.token0.name = 'Ether (Wrapped)'
-    data.token0.symbol = 'ETH'
+  
+  // Clone nested objects before modifying
+  if (pairData?.token0?.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
+    pairData.token0 = { ...pairData.token0, name: 'Ether (Wrapped)', symbol: 'ETH' }
   }
-  if (data?.token1?.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
-    data.token1.name = 'Ether (Wrapped)'
-    data.token1.symbol = 'ETH'
+  if (pairData?.token1?.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
+    pairData.token1 = { ...pairData.token1, name: 'Ether (Wrapped)', symbol: 'ETH' }
   }
-  return data
+  
+  return pairData
 }
 
 const getPairTransactions = async pairAddress => {
   const transactions = {}
 
   try {
-    let result = await client.query({
+    let result = await queryWithCache(client, {
       query: FILTERED_TRANSACTIONS,
       variables: {
         allPairs: [pairAddress]
       },
-      fetchPolicy: 'no-cache'
+      fetchPolicy: 'cache-first'
     })
-    transactions.mints = result.data.mints
-    transactions.burns = result.data.burns
-    transactions.swaps = result.data.swaps
+    transactions.mints = result?.data?.mints || []
+    transactions.burns = result?.data?.burns || []
+    transactions.swaps = result?.data?.swaps || []
   } catch (e) {
     console.log(e)
   }
@@ -326,7 +336,7 @@ const getPairChartData = async pairAddress => {
     let allFound = false
     let skip = 0
     while (!allFound) {
-      let result = await client.query({
+      let result = await queryWithCache(client, {
         query: PAIR_CHART,
         variables: {
           pairAddress: pairAddress,
@@ -335,8 +345,8 @@ const getPairChartData = async pairAddress => {
         fetchPolicy: 'cache-first'
       })
       skip += 1000
-      data = data.concat(result.data.pairDayDatas)
-      if (result.data.pairDayDatas.length < 1000) {
+      data = data.concat(result?.data?.pairDayDatas || [])
+      if (!result?.data?.pairDayDatas || result.data.pairDayDatas.length < 1000) {
         allFound = true
       }
     }
@@ -345,11 +355,11 @@ const getPairChartData = async pairAddress => {
     let dayIndexArray = []
     const oneDay = 24 * 60 * 60
     data.forEach((dayData, i) => {
+      // clone entries before mutating to avoid Apollo cache non-extensible objects
+      const cloned = { ...data[i], dailyVolumeUSD: parseFloat(data[i].dailyVolumeUSD), reserveUSD: parseFloat(data[i].reserveUSD) }
       // add the day index to the set of days
-      dayIndexSet.add((data[i].date / oneDay).toFixed(0))
-      dayIndexArray.push(data[i])
-      dayData.dailyVolumeUSD = parseFloat(dayData.dailyVolumeUSD)
-      dayData.reserveUSD = parseFloat(dayData.reserveUSD)
+      dayIndexSet.add((cloned.date / oneDay).toFixed(0))
+      dayIndexArray.push(cloned)
     })
 
     if (data[0]) {
@@ -463,7 +473,7 @@ export function Updater() {
       // get top pairs by reserves
       let {
         data: { pairs }
-      } = await client.query({
+      } = await queryWithCache(client, {
         query: PAIRS_CURRENT,
         fetchPolicy: 'cache-first'
       })

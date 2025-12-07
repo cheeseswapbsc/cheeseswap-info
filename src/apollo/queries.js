@@ -3,10 +3,19 @@ import { FACTORY_ADDRESS, BUNDLE_ID } from '../constants'
 
 export const SUBGRAPH_HEALTH = gql`
   query health {
-    indexingStatusForCurrentVersion(subgraphName: "blockartist/cheesesub") {
+    indexingStatusForCurrentVersion(subgraphName: "cheeseswapbsc/cheeseswap") {
       synced
       health
+      fatalError {
+        message
+        block {
+          number
+          hash
+        }
+        handler
+      }
       chains {
+        network
         chainHeadBlock {
           number
         }
@@ -459,6 +468,7 @@ export const GLOBAL_TXNS = gql`
           timestamp
         }
         pair {
+          id
           token0 {
             id
             symbol
@@ -480,6 +490,7 @@ export const GLOBAL_TXNS = gql`
           timestamp
         }
         pair {
+          id
           token0 {
             id
             symbol
@@ -501,6 +512,7 @@ export const GLOBAL_TXNS = gql`
           timestamp
         }
         pair {
+          id
           token0 {
             id
             symbol

@@ -28,7 +28,7 @@ interface Position {
   token1PriceUSD: number
 }
 
-const PRICE_DISCOVERY_START_TIMESTAMP = 1519747086
+const PRICE_DISCOVERY_START_TIMESTAMP = 1599242400
 
 function formatPricesForEarlyTimestamps(position): Position {
   if (position.timestamp < PRICE_DISCOVERY_START_TIMESTAMP) {
@@ -36,14 +36,14 @@ function formatPricesForEarlyTimestamps(position): Position {
       position.token0PriceUSD = 1
     }
     if (priceOverrides.includes(position?.pair?.token1.id)) {
-      position.token1PriceUSD = 1
+      position.token1PriceUSD = 31
     }
     // WETH price
-    if (position.pair?.token0.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
-      position.token0PriceUSD = 30
+    if (position.pair?.token0.id === '0x55d398326f99059fF775485246999027B3197955') {
+      position.token0PriceUSD = 1
     }
     if (position.pair?.token1.id === '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c') {
-      position.token1PriceUSD = 30
+      position.token1PriceUSD = 31
     }
   }
   return position

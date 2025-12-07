@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { RowFixed, RowBetween } from '../Row'
 import { useMedia } from 'react-use'
@@ -25,7 +25,7 @@ export default function GlobalStats() {
   const below400 = useMedia('(max-width: 400px)')
   const below816 = useMedia('(max-width: 816px)')
 
-  const [setShowPriceCard] = useState(false)
+ // const [setShowPriceCard] = useState(false)
 
   const { oneDayVolumeUSD, oneDayTxns, pairCount } = useGlobalData()
   const [ethPrice] = useEthPrice()

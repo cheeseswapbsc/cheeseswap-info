@@ -19,6 +19,20 @@ import { PAIR_SEARCH, TOKEN_SEARCH } from '../../apollo/queries'
 import FormattedName from '../FormattedName'
 import { TYPE } from '../../Theme'
 
+// Guard calls to `transparentize` so we don't pass gradients or non-color strings
+const safeTransparentize = (amount, color) => {
+  try {
+    if (!color || typeof color !== 'string') return 'transparent'
+    const lc = color.toLowerCase()
+    if (lc.includes('gradient') || lc.includes('linear-gradient') || lc.includes('radial-gradient')) {
+      return 'transparent'
+    }
+    return transparentize(amount, color)
+  } catch (e) {
+    return 'transparent'
+  }
+}
+
 const Container = styled.div`
   height: 48px;
   z-index: 30;
@@ -38,7 +52,7 @@ const Wrapper = styled.div`
   padding: 12px 16px;
   border-radius: 12px;
   background: ${({ theme, small, open }) =>
-    small ? (open ? transparentize(0.4, theme.bg1) : 'none') : transparentize(0.4, theme.bg6)};
+    small ? (open ? safeTransparentize(0.4, theme.bg1) : 'none') : safeTransparentize(0.4, theme.bg6)};
   border-bottom-right-radius: ${({ open }) => (open ? '0px' : '12px')};
   border-bottom-left-radius: ${({ open }) => (open ? '0px' : '12px')};
   z-index: 9999;
@@ -50,7 +64,7 @@ const Wrapper = styled.div`
       ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
       : 'none'};
   @media screen and (max-width: 500px) {
-    background: ${({ theme }) => transparentize(0.4, theme.bg1)};
+    background: ${({ theme }) => safeTransparentize(0.4, theme.bg1)};
     box-shadow: ${({ open }) =>
       !open
         ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '

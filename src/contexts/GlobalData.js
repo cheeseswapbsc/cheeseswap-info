@@ -19,6 +19,7 @@ import {
   ALL_TOKENS,
   TOP_LPS_PER_PAIRS
 } from '../apollo/queries'
+import { queryWithCache } from '../utils/queryCache'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from './PairData'
 const UPDATE = 'UPDATE'
@@ -213,6 +214,7 @@ export default function Provider({ children }) {
 async function getGlobalData(ethPrice, oldEthPrice) {
   // data for each day , historic data used for % changes
   let data = {}
+  let out
   let oneDayData = {}
   let twoDayData = {}
 
@@ -233,36 +235,83 @@ async function getGlobalData(ethPrice, oldEthPrice) {
     ])
 
     // fetch the global data
-    let result = await client.query({
+    let result = await queryWithCache(client, {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first'
     })
-    data = result.data.uniswapFactories[0]
+    
+    console.log('Global data result:', result)
+    console.log('Factories:', result?.data?.uniswapFactories)
+    data = result?.data?.uniswapFactories?.[0]
+    // create a shallow copy to avoid mutating read-only objects returned by Apollo
+    out = data ? { ...data } : data
+    
+    if (!data) {
+      console.error('No factory data found! Check if FACTORY_ADDRESS is correct and factory exists in subgraph')
+    }
 
-    // fetch the historical data
-    let oneDayResult = await client.query({
-      query: GLOBAL_DATA(oneDayBlock?.number),
-      fetchPolicy: 'cache-first'
-    })
-    oneDayData = oneDayResult.data.uniswapFactories[0]
+    // fetch the historical data - wrap in try-catch for block range errors
+    try {
+      if (oneDayBlock?.number) {
+        let oneDayResult = await queryWithCache(client, {
+          query: GLOBAL_DATA(oneDayBlock.number),
+          fetchPolicy: 'cache-first'
+        })
+        oneDayData = oneDayResult?.data?.uniswapFactories?.[0]
+      } else {
+        console.log('One day block not available, using current data')
+        oneDayData = data
+      }
+    } catch (e) {
+      console.log('Unable to fetch one day data, using current data as fallback')
+      oneDayData = data
+    }
 
-    let twoDayResult = await client.query({
-      query: GLOBAL_DATA(twoDayBlock?.number),
-      fetchPolicy: 'cache-first'
-    })
-    twoDayData = twoDayResult.data.uniswapFactories[0]
+    try {
+      if (twoDayBlock?.number) {
+        let twoDayResult = await queryWithCache(client, {
+          query: GLOBAL_DATA(twoDayBlock.number),
+          fetchPolicy: 'cache-first'
+        })
+        twoDayData = twoDayResult?.data?.uniswapFactories?.[0]
+      } else {
+        console.log('Two day block not available, using current data')
+        twoDayData = data
+      }
+    } catch (e) {
+      console.log('Unable to fetch two day data, using current data as fallback')
+      twoDayData = data
+    }
 
-    let oneWeekResult = await client.query({
-      query: GLOBAL_DATA(oneWeekBlock?.number),
-      fetchPolicy: 'cache-first'
-    })
-    const oneWeekData = oneWeekResult.data.uniswapFactories[0]
+    let oneWeekData = data
+    try {
+      if (oneWeekBlock?.number) {
+        let oneWeekResult = await queryWithCache(client, {
+          query: GLOBAL_DATA(oneWeekBlock.number),
+          fetchPolicy: 'cache-first'
+        })
+        oneWeekData = oneWeekResult?.data?.uniswapFactories?.[0]
+      } else {
+        console.log('One week block not available, using current data')
+      }
+    } catch (e) {
+      console.log('Unable to fetch one week data, using current data as fallback')
+    }
 
-    let twoWeekResult = await client.query({
-      query: GLOBAL_DATA(twoWeekBlock?.number),
-      fetchPolicy: 'cache-first'
-    })
-    const twoWeekData = twoWeekResult.data.uniswapFactories[0]
+    let twoWeekData = data
+    try {
+      if (twoWeekBlock?.number) {
+        let twoWeekResult = await queryWithCache(client, {
+          query: GLOBAL_DATA(twoWeekBlock.number),
+          fetchPolicy: 'cache-first'
+        })
+        twoWeekData = twoWeekResult?.data?.uniswapFactories?.[0]
+      } else {
+        console.log('Two week block not available, using current data')
+      }
+    } catch (e) {
+      console.log('Unable to fetch two week data, using current data as fallback')
+    }
 
     if (data && oneDayData && twoDayData && twoWeekData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
@@ -283,27 +332,28 @@ async function getGlobalData(ethPrice, oldEthPrice) {
         twoDayData.txCount ? twoDayData.txCount : 0
       )
 
-      // format the total liquidity in USD
-      data.totalLiquidityUSD = data.totalLiquidityETH * ethPrice
+      // format the total liquidity in USD on the copied object
+      out.totalLiquidityUSD = data.totalLiquidityETH * ethPrice
       const liquidityChangeUSD = getPercentChange(
         data.totalLiquidityETH * ethPrice,
         oneDayData.totalLiquidityETH * oldEthPrice
       )
 
-      // add relevant fields with the calculated amounts
-      data.oneDayVolumeUSD = oneDayVolumeUSD
-      data.oneWeekVolume = oneWeekVolume
-      data.weeklyVolumeChange = weeklyVolumeChange
-      data.volumeChangeUSD = volumeChangeUSD
-      data.liquidityChangeUSD = liquidityChangeUSD
-      data.oneDayTxns = oneDayTxns
-      data.txnChange = txnChange
+      // add relevant fields with the calculated amounts onto the copy
+      out.oneDayVolumeUSD = oneDayVolumeUSD
+      out.oneWeekVolume = oneWeekVolume
+      out.weeklyVolumeChange = weeklyVolumeChange
+      out.volumeChangeUSD = volumeChangeUSD
+      out.liquidityChangeUSD = liquidityChangeUSD
+      out.oneDayTxns = oneDayTxns
+      out.txnChange = txnChange
     }
   } catch (e) {
     console.log(e)
   }
 
-  return data
+  // return the copied object with calculated fields if available
+  return typeof out !== 'undefined' ? out : data
 }
 
 /**
@@ -320,17 +370,28 @@ const getChartData = async oldestDateToFetch => {
 
   try {
     while (!allFound) {
-      let result = await client.query({
-        query: GLOBAL_CHART,
-        variables: {
-          startTime: oldestDateToFetch,
-          skip
-        },
-        fetchPolicy: 'cache-first'
-      })
-      skip += 1000
-      data = data.concat(result.data.uniswapDayDatas)
-      if (result.data.uniswapDayDatas.length < 30) {
+      const currentSkip = skip // Capture skip value for this iteration
+      try {
+        let result = await queryWithCache(client, {
+          query: GLOBAL_CHART,
+          variables: {
+            startTime: oldestDateToFetch,
+            skip: currentSkip
+          },
+          fetchPolicy: 'cache-first'
+        })
+        skip += 1000
+        data = data.concat(result?.data?.uniswapDayDatas || [])
+        if (!result?.data?.uniswapDayDatas || result.data.uniswapDayDatas.length < 30) {
+          allFound = true
+        }
+        
+        // Small delay between iterations
+        if (!allFound) {
+          await new Promise(resolve => setTimeout(resolve, 200))
+        }
+      } catch (e) {
+        console.log('Error fetching chart data:', e)
         allFound = true
       }
     }
@@ -340,12 +401,19 @@ const getChartData = async oldestDateToFetch => {
       let dayIndexArray = []
       const oneDay = 24 * 60 * 60
 
+      // Check if data has items before processing
+      if (data.length === 0) {
+        console.log('No chart data available')
+        return [[], []]
+      }
+
       // for each day, parse the daily volume and format for chart array
       data.forEach((dayData, i) => {
         // add the day index to the set of days
         dayIndexSet.add((data[i].date / oneDay).toFixed(0))
-        dayIndexArray.push(data[i])
-        dayData.dailyVolumeUSD = parseFloat(dayData.dailyVolumeUSD)
+        // Clone the object to avoid read-only errors from Apollo cache
+        const clonedDayData = { ...dayData, dailyVolumeUSD: parseFloat(dayData.dailyVolumeUSD) }
+        dayIndexArray.push(clonedDayData)
       })
 
       // fill in empty days ( there will be no day datas if no trades made that day )
@@ -400,7 +468,7 @@ const getGlobalTransactions = async () => {
   let transactions = {}
 
   try {
-    let result = await client.query({
+    let result = await queryWithCache(client, {
       query: GLOBAL_TXNS,
       fetchPolicy: 'cache-first'
     })
@@ -449,21 +517,28 @@ const getEthPrice = async () => {
 
   try {
     let oneDayBlock = await getBlockFromTimestamp(utcOneDayBack)
-    let result = await client.query({
+    
+    // Use rate limiter with retry logic
+    let result = await queryWithCache(client, {
       query: ETH_PRICE(),
       fetchPolicy: 'cache-first'
     })
-    let resultOneDay = await client.query({
+    
+    // Small delay between the two ETH price queries
+    await new Promise(resolve => setTimeout(resolve, 150))
+    
+    let resultOneDay = await queryWithCache(client, {
       query: ETH_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first'
     })
+    
     const currentPrice = result?.data?.bundles[0]?.ethPrice
     const oneDayBackPrice = resultOneDay?.data?.bundles[0]?.ethPrice
     priceChangeETH = getPercentChange(currentPrice, oneDayBackPrice)
     ethPrice = currentPrice
     ethPriceOneDay = oneDayBackPrice
   } catch (e) {
-    console.log(e)
+    console.log('Error fetching ETH price:', e)
   }
 
   return [ethPrice, ethPriceOneDay, priceChangeETH]
@@ -481,7 +556,7 @@ async function getAllPairsOnUniswap() {
     let pairs = []
     let skipCount = 0
     while (!allFound) {
-      let result = await client.query({
+      let result = await queryWithCache(client, {
         query: ALL_PAIRS,
         variables: {
           skip: skipCount
@@ -509,7 +584,7 @@ async function getAllTokensOnUniswap() {
     let skipCount = 0
     let tokens = []
     while (!allFound) {
-      let result = await client.query({
+      let result = await queryWithCache(client, {
         query: ALL_TOKENS,
         variables: {
           skip: skipCount
@@ -583,6 +658,8 @@ export function useGlobalChartData() {
    */
   useEffect(() => {
     async function fetchData() {
+      // Small delay to stagger chart data fetch
+      await new Promise(resolve => setTimeout(resolve, 200))
       // historical stuff for chart
       let [newChartData, newWeeklyData] = await getChartData(oldestDateFetch)
       updateChart(newChartData, newWeeklyData)
@@ -617,6 +694,8 @@ export function useEthPrice() {
   useEffect(() => {
     async function checkForEthPrice() {
       if (!ethPrice) {
+        // Small delay to stagger requests on initial load
+        await new Promise(resolve => setTimeout(resolve, 100))
         let [newPrice, oneDayPrice, priceChange] = await getEthPrice()
         updateEthPrice(newPrice, oneDayPrice, priceChange)
       }
@@ -662,8 +741,8 @@ export function useTopLps() {
       let topLpLists = await Promise.all(
         topPairs.map(async pair => {
           // for each one, fetch top LPs
-          try {
-            const { data: results } = await client.query({
+            try {
+            const { data: results } = await queryWithCache(client, {
               query: TOP_LPS_PER_PAIRS,
               variables: {
                 pair: pair.toString()

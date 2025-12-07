@@ -185,8 +185,8 @@ export function useUserSnapshots(account) {
             },
             fetchPolicy: 'cache-first'
           })
-          allResults = allResults.concat(result.data.liquidityPositionSnapshots)
-          if (result.data.liquidityPositionSnapshots.length < 1000) {
+          allResults = allResults.concat(result?.data?.liquidityPositionSnapshots || [])
+          if (!result?.data?.liquidityPositionSnapshots || result.data.liquidityPositionSnapshots.length < 1000) {
             found = true
           } else {
             skip += 1000

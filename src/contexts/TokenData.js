@@ -226,7 +226,7 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
         oneDayData &&
         twoDayData &&
         current?.data?.tokens.map(async token => {
-          let data = token
+          let data = token ? { ...token } : {}
 
           // let liquidityDataThisToken = liquidityData?.[token.id]
           let oneDayHistory = oneDayData?.[token.id]
@@ -238,14 +238,14 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
               query: TOKEN_DATA(token.id, oneDayBlock),
               fetchPolicy: 'cache-first'
             })
-            oneDayHistory = oneDayResult.data.tokens[0]
+            oneDayHistory = oneDayResult?.data?.tokens?.[0]
           }
           if (!twoDayHistory) {
             let twoDayResult = await client.query({
               query: TOKEN_DATA(token.id, twoDayBlock),
               fetchPolicy: 'cache-first'
             })
-            twoDayHistory = twoDayResult.data.tokens[0]
+            twoDayHistory = twoDayResult?.data?.tokens?.[0]
           }
 
           // calculate percentage changes and daily changes
@@ -327,6 +327,8 @@ const getTokenData = async (address, ethPrice, ethPriceOld) => {
       fetchPolicy: 'cache-first'
     })
     data = result?.data?.tokens?.[0]
+    // clone to avoid mutating Apollo cached objects which may be non-extensible
+    data = data ? { ...data } : {}
 
     // get results from 24 hours in past
     let oneDayResult = await client.query({
@@ -557,9 +559,9 @@ const getTokenChartData = async tokenAddress => {
     const oneDay = 24 * 60 * 60
     data.forEach((dayData, i) => {
       // add the day index to the set of days
-      dayIndexSet.add((data[i].date / oneDay).toFixed(0))
-      dayIndexArray.push(data[i])
-      dayData.dailyVolumeUSD = parseFloat(dayData.dailyVolumeUSD)
+      const cloned = { ...data[i], dailyVolumeUSD: parseFloat(data[i].dailyVolumeUSD) }
+      dayIndexSet.add((cloned.date / oneDay).toFixed(0))
+      dayIndexArray.push(cloned)
     })
 
     // fill in empty days

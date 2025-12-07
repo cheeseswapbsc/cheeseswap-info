@@ -26,9 +26,9 @@ export async function getV1Data() {
       fetchPolicy: 'cache-first'
     })
 
-    let data = result.data.current
-    let oneDayData = result.data.oneDay[0]
-    let twoDayData = result.data.twoDay[0]
+    let data = result?.data?.current
+    let oneDayData = result?.data?.oneDay?.[0]
+    let twoDayData = result?.data?.twoDay?.[0]
 
     let [volumeChangeUSD, volumePercentChangeUSD] = get2DayPercentChange(
       data.totalVolumeUSD,

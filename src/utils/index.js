@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { ethers } from 'ethers'
 import utc from 'dayjs/plugin/utc'
 import { client, blockClient } from '../apollo/client'
+import { queryWithCache } from './queryCache'
 import { GET_BLOCK, GET_BLOCKS, SHARE_VALUE } from '../apollo/queries'
 import { Text } from 'rebass'
 import _Decimal from 'decimal.js-light'
@@ -117,6 +118,9 @@ export function getTimestampsForChanges() {
   return [t1, t2, tWeek]
 }
 
+// Helper to delay requests and avoid rate limits
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 export async function splitQuery(query, localClient, vars, list, skipCount = 100) {
   let fetchedData = {}
   let allFound = false
@@ -128,18 +132,44 @@ export async function splitQuery(query, localClient, vars, list, skipCount = 100
       end = skip + skipCount
     }
     let sliced = list.slice(skip, end)
-    let result = await localClient.query({
-      query: query(...vars, sliced),
-      fetchPolicy: 'cache-first'
-    })
-    fetchedData = {
-      ...fetchedData,
-      ...result.data
-    }
-    if (Object.keys(result.data).length < skipCount || skip + skipCount > list.length) {
-      allFound = true
-    } else {
-      skip += skipCount
+    try {
+        let result = await queryWithCache(localClient, {
+          query: query(...vars, sliced),
+          fetchPolicy: 'cache-first'
+        })
+      fetchedData = {
+        ...fetchedData,
+        ...result.data
+      }
+      if (Object.keys(result.data).length < skipCount || skip + skipCount > list.length) {
+        allFound = true
+      } else {
+        skip += skipCount
+        // Add small delay between batches to avoid rate limiting
+        await delay(100)
+      }
+    } catch (e) {
+      console.log('Error fetching data for block range:', e)
+      // Check if error is about block number being outside subgraph range
+      const errorMessage = e.message || JSON.stringify(e)
+      const hasGraphQLErrors = e.graphQLErrors && e.graphQLErrors.length > 0
+      const graphQLMessage = hasGraphQLErrors ? e.graphQLErrors[0].message : ''
+      
+      if (errorMessage.includes('only has data starting at block') || 
+          graphQLMessage.includes('only has data starting at block') ||
+          errorMessage.includes('data for block number') ||
+          graphQLMessage.includes('data for block number')) {
+        console.log('Skipping blocks outside subgraph range')
+        allFound = true
+      } else if (errorMessage.includes('429') || errorMessage.includes('Too Many Requests')) {
+        console.log('Rate limited, waiting before retry...')
+        await delay(2000) // Wait 2 seconds on rate limit
+        // Don't increment skip, retry the same batch
+      } else {
+        // For other errors, continue but log them
+        console.warn('Non-fatal query error, continuing...', e)
+        allFound = true
+      }
     }
   }
 
@@ -152,15 +182,20 @@ export async function splitQuery(query, localClient, vars, list, skipCount = 100
  * @param {Int} timestamp in seconds
  */
 export async function getBlockFromTimestamp(timestamp) {
-  let result = await blockClient.query({
-    query: GET_BLOCK,
-    variables: {
-      timestampFrom: timestamp,
-      timestampTo: timestamp + 600
-    },
-    fetchPolicy: 'cache-first'
-  })
-  return result?.data?.blocks?.[0]?.number
+  try {
+      let result = await queryWithCache(blockClient, {
+        query: GET_BLOCK,
+        variables: {
+          timestampFrom: timestamp,
+          timestampTo: timestamp + 600
+        },
+        fetchPolicy: 'cache-first'
+      })
+    return result?.data?.blocks?.[0]?.number
+  } catch (e) {
+    console.log('Error fetching block for timestamp:', timestamp, e)
+    return undefined
+  }
 }
 
 /**
@@ -170,25 +205,44 @@ export async function getBlockFromTimestamp(timestamp) {
  * @dev timestamps are returns as they were provided; not the block time.
  * @param {Array} timestamps
  */
+// Minimum block number where the subgraph data starts (CheeseSwap deployment block)
+const SUBGRAPH_START_BLOCK = 68636303 // Update this to match your subgraph's start block
+
 export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
   if (timestamps?.length === 0) {
     return []
   }
 
-  let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
+  try {
+    let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 
-  let blocks = []
-  if (fetchedData) {
-    for (var t in fetchedData) {
-      if (fetchedData[t].length > 0) {
-        blocks.push({
-          timestamp: t.split('t')[1],
-          number: fetchedData[t][0]['number']
-        })
+    let blocks = []
+    if (fetchedData) {
+      for (var t in fetchedData) {
+        if (fetchedData[t].length > 0) {
+          const blockNumber = fetchedData[t][0]['number']
+          // Only include blocks at or after the subgraph start block
+          if (blockNumber >= SUBGRAPH_START_BLOCK) {
+            blocks.push({
+              timestamp: t.split('t')[1],
+              number: blockNumber
+            })
+          } else {
+            console.log(`Skipping block ${blockNumber}, before subgraph start block ${SUBGRAPH_START_BLOCK}`)
+            blocks.push({
+              timestamp: t.split('t')[1],
+              number: undefined // Mark as unavailable
+            })
+          }
+        }
       }
     }
+    return blocks
+  } catch (e) {
+    console.log('Error fetching blocks from timestamps:', e)
+    // Return empty blocks if data not available
+    return timestamps.map(ts => ({ timestamp: ts, number: undefined }))
   }
-  return blocks
 }
 
 export async function getLiquidityTokenBalanceOvertime(account, timestamps) {
@@ -196,10 +250,10 @@ export async function getLiquidityTokenBalanceOvertime(account, timestamps) {
   const blocks = await getBlocksFromTimestamps(timestamps)
 
   // get historical share values with time travel queries
-  let result = await client.query({
-    query: SHARE_VALUE(account, blocks),
-    fetchPolicy: 'cache-first'
-  })
+    let result = await queryWithCache(client, {
+      query: SHARE_VALUE(account, blocks),
+      fetchPolicy: 'cache-first'
+    })
 
   let values = []
   for (var row in result?.data) {
@@ -230,10 +284,10 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
   const blocks = await getBlocksFromTimestamps(timestamps)
 
   // get historical share values with time travel queries
-  let result = await client.query({
-    query: SHARE_VALUE(pairAddress, blocks),
-    fetchPolicy: 'cache-first'
-  })
+    let result = await queryWithCache(client, {
+      query: SHARE_VALUE(pairAddress, blocks),
+      fetchPolicy: 'cache-first'
+    })
 
   let values = []
   for (var row in result?.data) {
@@ -295,6 +349,13 @@ export const isAddress = value => {
   } catch {
     return false
   }
+}
+
+export const normalizeAddress = value => {
+  if (!value || typeof value !== 'string') return value
+  // If looks like a hex address, return lowercased form for consistent keys/queries
+  if (/^0x[a-fA-F0-9]{40}$/.test(value)) return value.toLowerCase()
+  return value
 }
 
 export const toK = num => {

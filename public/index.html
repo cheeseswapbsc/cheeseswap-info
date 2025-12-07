@@ -31,9 +31,6 @@
     <meta name="author" content="CheeseSwap" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="sitemap" href="%PUBLIC_URL%/sitemap.xml" />
-    <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
     <title>CheeseSwap Info | BSC Exchange Data Analytics</title>
     
     <meta name="twitter:description" content="🧀 CheeseSwap exchange swap data analytics information, Binance smart chain BSC BEP20 tokens BNB, WBNB, BUSD, CHS, BUTT, KP3RB, BTCB, ETH, DAI" />
@@ -41,9 +38,7 @@
     <meta name="twitter:image" content="%PUBLIC_URL%/twitter-card-jpg" />
     <meta name="twitter:title" content="CheeseSwap Info | CheeseSwap AMM Data Analytics" />
     
-     <!-- Rocketloader & Webvitals -->
-    <script async src="%PUBLIC_URL%/rocket-loader.min.js"> </script>
-    <script async src="%PUBLIC_URL%/vitals.js"> </script>
+   <script async src="%PUBLIC_URL%/vitals.js"> </script>
     <!-- Project Info -->
     
      <script type="application/ld+json">
@@ -74,6 +69,17 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" />
+    <div id="root" style="min-height: 100vh;"></div>
+    <script>
+    const redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect != location.pathname) {
+    (function(){
+    const query = new URLSearchParams(location.search);
+    const redirect = query.get('redirect') || sessionStorage.redirect;
+    if (redirect && redirect !== location.pathname) {
+      history.replaceState(null, null, redirect);
+      }
+    </script>
   </body>
 </html>

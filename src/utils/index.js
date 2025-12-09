@@ -154,13 +154,22 @@ export async function splitQuery(query, localClient, vars, list, skipCount = 100
       const errorMessage = e.message || JSON.stringify(e)
       const hasGraphQLErrors = e.graphQLErrors && e.graphQLErrors.length > 0
       const graphQLMessage = hasGraphQLErrors ? e.graphQLErrors[0].message : ''
-      
-      if (errorMessage.includes('only has data starting at block') || 
+
+      if (errorMessage.includes('only has data starting at block') ||
           graphQLMessage.includes('only has data starting at block') ||
           errorMessage.includes('data for block number') ||
           graphQLMessage.includes('data for block number')) {
-        console.log('Skipping blocks outside subgraph range')
-        allFound = true
+        console.log('Subgraph range error for this batch — continuing to next batch')
+        // Move to next batch instead of aborting altogether so other batches can be attempted
+        if (skip + skipCount < list.length) {
+          skip += skipCount
+          // small delay to avoid immediate retry storms
+          await delay(100)
+          continue
+        } else {
+          // nothing left to fetch, exit loop
+          allFound = true
+        }
       } else if (errorMessage.includes('429') || errorMessage.includes('Too Many Requests')) {
         console.log('Rate limited, waiting before retry...')
         await delay(2000) // Wait 2 seconds on rate limit
@@ -205,8 +214,8 @@ export async function getBlockFromTimestamp(timestamp) {
  * @dev timestamps are returns as they were provided; not the block time.
  * @param {Array} timestamps
  */
-// Minimum block number where the subgraph data starts (CheeseSwap deployment block)
-const SUBGRAPH_START_BLOCK = 68636303 // Update this to match your subgraph's start block
+// NOTE: previously enforced a minimum subgraph start block; behavior changed to
+// include returned blocks (or undefined) so callers handle missing data themselves.
 
 export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
   if (timestamps?.length === 0) {
@@ -221,19 +230,17 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
       for (var t in fetchedData) {
         if (fetchedData[t].length > 0) {
           const blockNumber = fetchedData[t][0]['number']
-          // Only include blocks at or after the subgraph start block
-          if (blockNumber >= SUBGRAPH_START_BLOCK) {
-            blocks.push({
-              timestamp: t.split('t')[1],
-              number: blockNumber
-            })
-          } else {
-            console.log(`Skipping block ${blockNumber}, before subgraph start block ${SUBGRAPH_START_BLOCK}`)
-            blocks.push({
-              timestamp: t.split('t')[1],
-              number: undefined // Mark as unavailable
-            })
-          }
+          // Include the block number regardless of SUBGRAPH_START_BLOCK — caller will decide how to handle
+          blocks.push({
+            timestamp: t.split('t')[1],
+            number: blockNumber
+          })
+        } else {
+          // No block found for this timestamp — mark as unavailable
+          blocks.push({
+            timestamp: t.split('t')[1],
+            number: undefined
+          })
         }
       }
     }
@@ -368,8 +375,8 @@ export const Big = number => new BigNumber(number)
 
 export const urls = {
   showTransaction: tx => `https://bscscan.com/tx/${tx}/`,
-  showAddress: address => `https://www.bscscan.com/address/${address}/`,
-  showToken: address => `https://www.bscscan.com/token/${address}/`,
+  showAddress: address => `https://bscscan.com/address/${address}/`,
+  showToken: address => `https://bscscan.com/token/${address}/`,
   showBlock: block => `https://bscscan.com/block/${block}/`
 }
 

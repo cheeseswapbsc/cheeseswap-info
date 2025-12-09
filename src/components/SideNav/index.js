@@ -6,7 +6,7 @@ import { BasicLink } from '../Link'
 import { useMedia } from 'react-use'
 import { TYPE } from '../../Theme'
 import { withRouter } from 'react-router-dom'
-import { TrendingUp, List, PieChart, Disc, Lock, Sunrise, RefreshCw, Home, Send, Twitter, BookOpen, GitMerge } from 'react-feather'
+import { TrendingUp, List, PieChart, Disc, RefreshCw, Home, Send, Twitter, BookOpen, GitMerge, Bell } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -161,40 +161,40 @@ function SideNav({ history }) {
                       Exchange<br />
                   </Option>
                 </Link>
-                <Link href="https://hotswap.link" target="_blank">
+                <Link href="#" target="_blank">
                   <Option>
-                    <Lock size={20} style={{ marginRight: '.75rem' }} />
-                      HOTS Farm🌭
+                    <List size={20} style={{ marginRight: '.75rem' }} />
+                      Farms - Earn
                   </Option>
                 </Link>
-                <Link href="https://pizzaswap.network" target="_blank">
+                <Link href="https://hots.cheeseswap.app" target="_blank">
                   <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                      Pizza🍕<br />
+                    <Bell size={20} style={{ marginRight: '.75rem' }} />
+                      HOTS Farm
                   </Option>
                 </Link>
-                   <Link href="https://kiwifinance.co" target="_blank">
+                <Link href="https://pizza.cheeseswap.app" target="_blank">
                   <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                      Kiwi🥝<br />
+                    <Bell size={20} style={{ marginRight: '.75rem' }} />
+                      PIZZA Farm<br />
                   </Option>
                 </Link>
-                <Link href="https://cheesemaker.farm" target="_blank">
+                   <Link href="https://kiwi.cheeseswap.app" target="_blank">
                   <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                     CNFT Farm🧀<br />
+                    <Bell size={20} style={{ marginRight: '.75rem' }} />
+                      KIWI Farm<br />
                   </Option>
                 </Link>
-                <Link href="https://www.cheesecake.best" target="_blank">
+                 <Link href="https://mango.cheeseswap.app" target="_blank">
                   <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                     Cheese Cake NFT🧀<br />
+                    <Bell size={20} style={{ marginRight: '.75rem' }} />
+                      MANGO Farm<br />
                   </Option>
                 </Link>
-                <Link href="#SOON" target="_blank">
+                <Link href="https://cnft.cheeseswap.app" target="_blank">
                   <Option>
-                    <Sunrise size={20} style={{ marginRight: '.75rem' }} />
-                     P2E Games🚀<br />
+                    <Bell size={20} style={{ marginRight: '.75rem' }} />
+                     CNFT Farm<br />
                   </Option>
                 </Link>
               </AutoColumn>
@@ -207,7 +207,7 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://t.me/cheesemakerfarm" target="_blank">
+              <Link href="#" target="_blank">
                 <Send size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
@@ -217,18 +217,13 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://docs.cheesemaker.farm/" target="_blank">
+              <Link href="https://help.cheeseswap.app/" target="_blank">
                 <BookOpen size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://api.cheeseswap.app" target="_blank">
+              <Link href="https://github.com/cheeseswapbsc" target="_blank">
                 <GitMerge size={18} style={{ marginRight: '.75rem' }} />
-              </Link>
-            </HeaderText>
-            <HeaderText>
-              <Link href="https://data.cheeseswap.app/totalliquidity" target="_blank">
-                <TrendingUp size={18} style={{ marginRight: '.75rem' }} />
               </Link>
             </HeaderText>
             <Toggle isActive={isDark} toggle={toggleDarkMode} />

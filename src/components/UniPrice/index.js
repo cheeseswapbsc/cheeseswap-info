@@ -34,9 +34,9 @@ export default function UniPrice() {
       : 0
   }, [daiPair, usdcPair, usdtPair])
 
-  const daiPerEth = daiPair ? parseFloat(daiPair.token0Price).toFixed(2) : '-'
-  const usdcPerEth = usdcPair ? parseFloat(usdcPair.token0Price).toFixed(2) : '-'
-  const usdtPerEth = usdtPair ? parseFloat(usdtPair.token0Price).toFixed(2) : '-'
+  const daiPerEth = daiPair ? parseFloat(daiPair.token0Price).toFixed(6) : '-'
+  const usdcPerEth = usdcPair ? parseFloat(usdcPair.token0Price).toFixed(6) : '-'
+  const usdtPerEth = usdtPair ? parseFloat(usdtPair.token0Price).toFixed(6) : '-'
 
   return (
     <PriceCard>

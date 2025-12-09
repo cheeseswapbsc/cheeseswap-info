@@ -4,8 +4,8 @@ import { Flex } from 'rebass'
 import Link from '../Link'
 
 const links = [
-  { url: 'https://cheeseswap.app', text: 'About' },
-  { url: 'https://docs.cheeseswap.app/', text: 'Docs' },
+  { url: 'https://cheeseswap.app', text: 'Swap' },
+  { url: 'https://help.cheeseswap.app/', text: 'Help' },
   { url: 'https://github.com/cheeseswapbsc/cheeseswap-info', text: 'Github' }
 ]
 
